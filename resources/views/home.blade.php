@@ -1,0 +1,6 @@
+@extends('layouts.body')
+@section('inside')
+    <div class="card-body">
+        You are logged in!
+    </div>
+@endsection
