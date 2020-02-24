@@ -99,6 +99,8 @@
         </nav>
     </header>
     @yield('content')
+    @yield('users')
 </div>
+
 </body>
 </html>
