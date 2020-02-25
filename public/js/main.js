@@ -22,3 +22,14 @@ document.getElementById('filename').addEventListener('change', handleFileSelect,
 
 
 
+$(document).ready(function() {
+    $('[data-rel=popover]').popover({
+        html: true,
+        trigger: "hover"
+    });
+})
+
+$('.checkbox').on('click', function(){
+    var checkbox = $(this).children('input[type="checkbox"]');
+    checkbox.prop('checked', !checkbox.prop('checked'));
+});

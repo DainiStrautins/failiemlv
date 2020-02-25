@@ -41,6 +41,28 @@ class UploadController extends Controller
             return redirect('/user');
         }
     }
+    public function storeadmin(request $request)
+    {
+        if ($request->hasFile('file'))
+        {
+            foreach ($request->file as $file){
+                $filename = $file->getClientOriginalName();
+
+                $filesize = $file->getClientSize();
+
+                $fileextension = $file->getClientOriginalExtension();
+
+                $file->storeAs('public/files',$filename);
+                $Upload = new Upload;
+                $Upload->user_id= auth()->user()->id;
+                $Upload->file = $filename;
+                $Upload->size = $filesize;
+                $Upload->save();
+
+            }
+            return redirect('/allrecords');
+        }
+    }
     public function get(){
         $user_id = auth()->id();
         $uploads= DB::table('uploads')->where('user_id','=', $user_id)->get();
@@ -77,4 +99,16 @@ class UploadController extends Controller
         Upload::find($id)->delete();
         return redirect('/user');
     }
+    public function indexmultidelete(Request $request){
+        return view('selected');
+        /* $checked = $request->input('checked');
+        dd($checked);*/
+
+    }
+    public function storeadminselected() {
+        $checked = Request::input('checked',[]);
+        return view('selected' , [Upload::whereIn("id",$checked)]);
+
+    }
+
 }

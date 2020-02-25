@@ -51,6 +51,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/', 'UploadController@store')->middleware('auth');
 
+Route::post('/user', 'UploadController@store')->middleware('auth');
+Route::post('/allrecords', 'UploadController@storeadmin')->middleware('auth');
+
+
 // USER DELETE
 Route::get('user/delete/{id}', 'UploadController@deleteuser');
 Route::post('user/delete/{id}', 'UploadController@commituser')->name('commituser');
@@ -60,6 +64,8 @@ Route::post('user/delete/{id}', 'UploadController@commituser')->name('commituser
 Route::get('allrecords/delete/{id}', 'UploadController@delete');
 Route::post('allrecords/delete/{id}', 'UploadController@commit')->name('commit');
 
+Route::get('allrecords/selected', 'UploadController@indexmultidelete');
+Route::post('/allrecords/selected', 'UploadController@storeadminselected')->middleware('auth');
 
 Auth::routes();
 
