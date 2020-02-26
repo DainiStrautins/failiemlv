@@ -50,18 +50,9 @@
                         </button>
                     </div>
                     <input class="upload-button hide-after mt-5" id="filename" type="file" multiple name="file[]"/>
-
                 </form>
             </div>
-
-            <div id="right" class="col-lg-9 col-sm-12 ">
-                <div class="flex-container" >
-                    <div class="row">
-    @yield('body')
-                    </div>
-                </div>
-            </div>
+            @yield('body')
         </div>
     </div>
-    <script type="text/javascript" src="{{ URL::asset('js/main.js') }}"></script>
 @endsection

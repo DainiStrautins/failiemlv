@@ -101,6 +101,6 @@
     @yield('content')
     @yield('users')
 </div>
-
+<script type="text/javascript" src="{{ URL::asset('js/popover.js') }}"></script>
 </body>
 </html>

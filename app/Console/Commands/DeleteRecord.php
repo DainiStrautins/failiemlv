@@ -26,7 +26,7 @@ class DeleteRecord extends Command
      * Create a new command instance.
      *
      * @return void
-
+     */
     public function __construct()
     {
         parent::__construct();
@@ -39,7 +39,28 @@ class DeleteRecord extends Command
      */
     public function handle()
     {
-        $Upload = Upload::whereDate('created_at', '<', Carbon::now()->subWeek())->delete();
-        dd($Upload);
+
+        $users = Upload::all();
+        foreach($users as $user)
+        {
+            $latest = Upload::latest('created_at')->pluck('created_at')->first();
+            $oldest = Upload::oldest('created_at')->pluck('created_at')->first();
+            if (now()->diffInDays($latest) > 14) {
+                $Upload = Upload::where('user_id',$user->user_id)->delete();
+                dd($Upload);
+            }
+
+
+            // needs to be fixed, šeit dzēš arā visus ierakstus vajag izdarīt tā lai tikai vienu !!
+            if (now()->diffInDays($oldest) > 7) {
+                $Upload = Upload::where('user_id',$user->user_id)->delete();
+                dd('Deleted 7 days old record');
+            }else {
+                dd('Nothing done');
+                var_dump($Upload);
+            }
+
+        }
+
     }
 }

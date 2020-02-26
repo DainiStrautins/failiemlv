@@ -103,10 +103,8 @@ class UploadController extends Controller
         Upload::find($id)->delete();
         return redirect('/user');
     }
-    public function indexmultidelete(Request $request){
-        return view('selected');
-        /* $checked = $request->input('checked');
-        dd($checked);*/
 
+    public function getDate(){
+        return Upload::latest('created_at')->first();
     }
 }
