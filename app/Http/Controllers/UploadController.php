@@ -65,13 +65,17 @@ class UploadController extends Controller
     }
     public function get(){
         $user_id = auth()->id();
-        $uploads= DB::table('uploads')->where('user_id','=', $user_id)->get();
+        $uploads=Upload::where('user_id','=', $user_id)->get();
             return view('user')->with(['uploads'=>$uploads]);
     }
     public function GetAllRecords(){
-        $uploads= DB::table('uploads')
-            ->get();
+        $uploads=  Upload::get();
             return view('allrecords')->with(['uploads'=>$uploads]);
+
+    }
+    public function GetDetails(){
+        $uploads=  Upload::get();
+        return view('sidebar')->with(['uploads'=>$uploads]);
 
     }
 
@@ -105,10 +109,4 @@ class UploadController extends Controller
         dd($checked);*/
 
     }
-    public function storeadminselected() {
-        $checked = Request::input('checked',[]);
-        return view('selected' , [Upload::whereIn("id",$checked)]);
-
-    }
-
 }

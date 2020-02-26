@@ -4,22 +4,14 @@
     <div class="container-fluid">
         <div class="row">
             <div id="left" class="col-md-3">
-                <form class="py-2" action="" method="post" enctype="multipart/form-data">
+                <form class="py-2" action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div id="upload_info">
-                        <div id="upload_name_edit" class="editable_field_wrapper">
+
                             <h1 class="editable_field_text">download.jfif</h1>
-                            <div class="editable_field_error_msg"></div>
-                            <textarea class="editable_field_textarea" rows="1">download.jfif</textarea>
-                            <div class="editable_field_save_button">
-                                <i class="fa fa-floppy-o"></i>
-                                Saglabāt					</div>
-                        </div>
-                        <div id="upload_info__delete_warning">Tiks dzēsts: Feb 28, 2020</div>
-                        <div id="upload_info_image_details">
-                            <ul id="upload_info_details">
-                                <li>
-                                    <span class="upload_info_details_text">nav norādīts</span>    					</li>
+
+                       Deletes at:
+                        <ul>
                                 <li>
                                     <span class="upload_info_details_text">1</span>
                                 </li>
@@ -32,7 +24,7 @@
                                 <li>
                                     <span class="upload_info_details_text">3</span>
                                 </li>
-                            </ul>
+                        </ul>
                             <div id="upload_info_image">
                             </div>
                         </div>
@@ -52,7 +44,6 @@
                                 <i class="fa fa-floppy-o"></i>
                                 Saglabāt            		</div>
                         </div>
-                    </div>
                     <div class="after-upload mt-5">
                         <button type="submit" class="file btn btn-lg btn-outline-primary btn-block rounded-pill">
                             Upload your files now!
@@ -60,9 +51,6 @@
                     </div>
                     <input class="upload-button hide-after mt-5" id="filename" type="file" multiple name="file[]"/>
 
-                    <a type="submit" href="allrecords/selected" class="file btn btn-lg btn-danger btn-block rounded-pill mt-2">
-                        Mass delete
-                    </a>
                 </form>
             </div>
 

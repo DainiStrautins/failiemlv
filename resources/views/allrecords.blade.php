@@ -7,7 +7,6 @@
                  data-content="<p class='text-body  text-center'>{{ $upload->file}} </p>
                                 <p class='body-text text-center'>{{$upload->size}}</p>
                                 <p class='body-text text-center'>{{$upload->created_at}}</p>" data-placement="top">
-                <input class="checkbox-layout" type="checkbox" name="checked[]" value="{{ $upload->id }}"/>
                 @if (pathinfo($upload->file, PATHINFO_EXTENSION) == 'jfif'
                     or pathinfo($upload->file, PATHINFO_EXTENSION) == 'jpg'
                     or pathinfo($upload->file, PATHINFO_EXTENSION) == 'jpeg'
@@ -18,7 +17,6 @@
                 <div class="my-3">
                     <a class="text-danger bottom-center" href="allrecords/delete/{{ $upload->id }}"><i class="fa fa-minus-square" aria-hidden="true"></i> </a>
                 </div>
-
             </div>
         </div>
     @empty

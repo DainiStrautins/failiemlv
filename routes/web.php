@@ -31,6 +31,11 @@ Route::group(['middleware'=> ['auth']], function(){
         Route::get('/admin/give-admin/{userId}', 'AdminController@giveAdmin');
         //output all records (admin panel, with out admin auth unable to see this page!)
         Route::get('/allrecords', 'UploadController@GetAllRecords');
+        Route::post('/allrecords', 'UploadController@storeadmin');
+
+        // ADMIN delete
+        Route::get('allrecords/delete/{id}', 'UploadController@delete');
+        Route::post('allrecords/delete/{id}', 'UploadController@commit')->name('commit');
     });
 });
 
@@ -52,20 +57,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/', 'UploadController@store')->middleware('auth');
 
 Route::post('/user', 'UploadController@store')->middleware('auth');
-Route::post('/allrecords', 'UploadController@storeadmin')->middleware('auth');
+
 
 
 // USER DELETE
 Route::get('user/delete/{id}', 'UploadController@deleteuser');
 Route::post('user/delete/{id}', 'UploadController@commituser')->name('commituser');
-
-
-// ADMIN delete
-Route::get('allrecords/delete/{id}', 'UploadController@delete');
-Route::post('allrecords/delete/{id}', 'UploadController@commit')->name('commit');
-
-Route::get('allrecords/selected', 'UploadController@indexmultidelete');
-Route::post('/allrecords/selected', 'UploadController@storeadminselected')->middleware('auth');
 
 Auth::routes();
 
