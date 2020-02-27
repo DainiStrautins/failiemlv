@@ -46,8 +46,8 @@ Route::get('/', function () {
 
 
 //output all records (users panel, can access his records if he has any!)
-Route::get('/user', 'UploadController@get')->middleware('auth');
 
+Route::get('/user', 'UploadController@get')->middleware('auth');
 
 
 

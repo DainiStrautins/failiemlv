@@ -39,22 +39,22 @@ class DeleteRecord extends Command
      */
     public function handle()
     {
-
+        //console this to run it -> php artisan command:DeleteRecord
         $users = Upload::all();
         foreach($users as $user)
         {
+
             $latest = Upload::latest('created_at')->pluck('created_at')->first();
             $oldest = Upload::oldest('created_at')->pluck('created_at')->first();
+            $filename = Upload::oldest('created_at')->pluck('file')->first();
             if (now()->diffInDays($latest) > 14) {
                 $Upload = Upload::where('user_id',$user->user_id)->delete();
-                dd($Upload);
+                dd($latest,'Deleted all records because of:',$filename);
             }
 
-
-            // needs to be fixed, šeit dzēš arā visus ierakstus vajag izdarīt tā lai tikai vienu !!
             if (now()->diffInDays($oldest) > 7) {
-                $Upload = Upload::where('user_id',$user->user_id)->delete();
-                dd('Deleted 7 days old record');
+                $Upload = Upload::where('created_at',$oldest)->first()->delete();
+                dd($oldest,'Deleted old record, this many days old:',now()->diffInDays($oldest),$filename);
             }else {
                 dd('Nothing done');
                 var_dump($Upload);

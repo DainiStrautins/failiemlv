@@ -28,8 +28,6 @@ class UploadController extends Controller
 
                 $filesize = $file->getClientSize();
 
-                $fileextension = $file->getClientOriginalExtension();
-
                 $file->storeAs('public/files',$filename);
                 $Upload = new Upload;
                 $Upload->user_id= auth()->user()->id;
@@ -66,7 +64,15 @@ class UploadController extends Controller
     public function get(){
         $user_id = auth()->id();
         $uploads=Upload::where('user_id','=', $user_id)->get();
-            return view('user')->with(['uploads'=>$uploads]);
+        $count = $uploads->count();
+        $date = Upload::latest('created_at')->first();
+            return view('/user')
+                ->with(['uploads'=>$uploads])
+                ->with(['date' =>$date])
+                ->with(['count' =>$count]
+                );
+
+
     }
     public function GetAllRecords(){
         $uploads=  Upload::get();
@@ -95,16 +101,24 @@ class UploadController extends Controller
         return redirect('/allrecords');
     }
     public function deleteuser($id){
-    return view('DeleteSelectedUser' , [
-        'offer' => Upload::where('id', $id)->firstOrFail(),
-    ]);
+        $userRoles = Auth::user()->roles->pluck('name');
+        $currentuser = Auth::user()->id;
+        $uploaduser = Upload::where('id',$id)->value('user_id');
+        if (($currentuser != $uploaduser) and (!$userRoles->contains('admin'))){
+                return redirect('/permission-denied');
+        } else{
+            return view('DeleteSelectedUser' , [
+                'offer' => Upload::where('id', $id)->firstOrFail(),
+            ]);
+        }
+
+
+
+
     }
     public function commituser($id){
         Upload::find($id)->delete();
         return redirect('/user');
     }
 
-    public function getDate(){
-        return Upload::latest('created_at')->first();
-    }
 }
