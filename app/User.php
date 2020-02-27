@@ -59,5 +59,8 @@ class User extends Authenticatable
         'created' => UserCreatedEvent::class,
 
     ];
-
+    public function uploads()
+    {
+        return $this->hasMany(Upload::class);
+    }
 }

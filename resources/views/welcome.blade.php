@@ -25,46 +25,14 @@
 
                         <!--This form will only show after person has submitted a file/s-->
                         <div class="after-upload">
-                            <h1> Your files have been stored!</h1>
+                            <h1> Your files will be stored after uploading!</h1>
                             @guest
-                                <p>Access a link after registration</p>
+                                <p>Dont forget to register first!</p>
                             @endguest
                             @auth
-                                <p>Access and share your files trough this link: idk būs vēlāk, varbūt</p>
+                                <p>You are ready to upload your files!</p>
                             @endauth
-                            <div class="form-group">
-                                <input  type="email"  class="form-control" placeholder="Enter your email">
-                            </div>
-                            <div class="form-group">
-                                <input  type="email"  class="form-control" placeholder="Enter other emails to whom to send the link with your files">
-                            </div>
-                            <div class="row pb-2">
-                                <div class="col-lg-3 text-left">
-                                    <label for="exampleFormControlSelect1" class="pt-2 pl-3">  File access:</label>
-                                </div>
-                                <div class="col-lg-9">
-                                    <select class="form-control" id="exampleFormControlSelect1">
-                                        <option>Anyone who has the site</option>
-                                        <option>With password</option>
-                                        <option>Only for me (secured)</option>
-                                        <option>Published in my account</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-3 text-left">
-                                    <label for="exampleFormControlSelect1" class="pt-2 pl-3"> Storage duration:</label>
-                                </div>
-                                <div class="col-lg-9">
-                                    <select class="form-control">
-                                        <option>1 Day</option>
-                                        <option>1 Week</option>
-                                        <option>1 Month</option>
-                                        <option>6 Months</option>
-                                        <option>Permanently</option>
-                                    </select>
-                                </div>
-                            </div>
+
                             <div class="col-md-7 col-sm-7 mx-auto pt-3 ">
                                 <input class="add-button" type="file" id="file" name="file[]" multiple />
                             </div>

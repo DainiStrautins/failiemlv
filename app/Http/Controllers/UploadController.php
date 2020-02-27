@@ -9,15 +9,18 @@ use Illuminate\Http\Request;
 
 class UploadController extends Controller
 {
+    // add authentication
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    // show main page
     public function index()
     {
         return view('welcome');
     }
+
 
     public function store(request $request)
     {
@@ -39,44 +42,21 @@ class UploadController extends Controller
             return redirect('/user');
         }
     }
-    public function storeadmin(request $request)
-    {
-        if ($request->hasFile('file'))
-        {
-            foreach ($request->file as $file){
-                $filename = $file->getClientOriginalName();
-
-                $filesize = $file->getClientSize();
-
-                $fileextension = $file->getClientOriginalExtension();
-
-                $file->storeAs('public/files',$filename);
-                $Upload = new Upload;
-                $Upload->user_id= auth()->user()->id;
-                $Upload->file = $filename;
-                $Upload->size = $filesize;
-                $Upload->save();
-
-            }
-            return redirect('/allrecords');
-        }
-    }
     public function get(){
         $user_id = auth()->id();
-        $uploads=Upload::where('user_id','=', $user_id)->get();
+        $uploads=Upload::where('user_id','=', $user_id)
+            ->get();
         $count = $uploads->count();
         $date = Upload::latest('created_at')->first();
-            return view('/user')
-                ->with(['uploads'=>$uploads])
-                ->with(['date' =>$date])
-                ->with(['count' =>$count]
-                );
-
-
+        return view('/user')
+            ->with(['uploads'=>$uploads])
+            ->with(['date' =>$date])
+            ->with(['count' =>$count]
+            );
     }
     public function GetAllRecords(){
-        $uploads=  Upload::get();
-            return view('allrecords')->with(['uploads'=>$uploads]);
+        $uploads = Upload::get();
+        return view('allrecords')->with(['uploads'=>$uploads]);
 
     }
     public function GetDetails(){
@@ -94,8 +74,8 @@ class UploadController extends Controller
                 'offer' => Upload::where('id', $id)->firstOrFail(),
             ]);
         }
-
     }
+
     public function commit($id){
         Upload::find($id)->delete();
         return redirect('/allrecords');
@@ -111,10 +91,6 @@ class UploadController extends Controller
                 'offer' => Upload::where('id', $id)->firstOrFail(),
             ]);
         }
-
-
-
-
     }
     public function commituser($id){
         Upload::find($id)->delete();

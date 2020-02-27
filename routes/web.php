@@ -11,27 +11,33 @@
 |
 */
 
+// Main authentication for ALL this project
+// Login and Register system
+// Database storing registered users
 
 Auth::routes();
 
 
-//General middleware auth
+// Secondary authentication, roles (Admin and User)
 Route::group(['middleware'=> ['auth']], function(){
 
-
-    //Users auth
+    // Users authentication
     Route::get('/user', 'DemoController@usersDemo')->name('user');
     Route::get('/permission-denied', 'DemoController@permisionDenied')->name('nopermission');
 
-    //Admin middleware
+
+    //Admin authentication
     Route::group(['middleware'=> ['admin']], function(){
+
 
         Route::get('/admin', 'AdminController@index')->name('admin');
         Route::get('/admin/remove-admin/{userId}', 'AdminController@removeAdmin');
         Route::get('/admin/give-admin/{userId}', 'AdminController@giveAdmin');
+
         //output all records (admin panel, with out admin auth unable to see this page!)
         Route::get('/allrecords', 'UploadController@GetAllRecords');
         Route::post('/allrecords', 'UploadController@storeadmin');
+
 
         // ADMIN delete
         Route::get('allrecords/delete/{id}', 'UploadController@delete');
@@ -40,24 +46,26 @@ Route::group(['middleware'=> ['auth']], function(){
 });
 
 
+// Start of the landing page
+// Show Landing page
 Route::get('/', function () {
     return view('welcome');
 });
 
-
-//output all records (users panel, can access his records if he has any!)
-
-Route::get('/user', 'UploadController@get')->middleware('auth');
-
-
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-
+// Inserts Data into database and redirects further into the website (/user)
 Route::post('/', 'UploadController@store')->middleware('auth');
+// End of the landing page
 
+
+// After uploading files you get redirected here (/user)
+Route::get('/user', 'UploadController@get')->middleware('auth');
+// Outputs all current user records (if no records, gets msg)
 Route::post('/user', 'UploadController@store')->middleware('auth');
 
+
+
+// After registration get redirected to this site saying you are LOGGED in
+Route::get('/home', 'HomeController@index')->name('home');
 
 
 // USER DELETE

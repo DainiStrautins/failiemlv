@@ -60,7 +60,7 @@
                                  data-content="<p class='text-body  text-center'>{{ $upload->file}} </p>
                                    <p class='body-text text-center'>{{$upload->size}}</p>
                                    <p class='body-text text-center'>Created at: {{$upload->created_at}}</p>
-                                   <p class='body-text text-center'>Deleting inevitably: {{$date->created_at->addDays(7)->toDateString()}}</p>" data-placement="top">
+                                   <p class='body-text text-center'>Deleting inevitably: {{$upload->created_at->addDays(7)->toDateString()}}</p>" data-placement="top">
                                 @if (pathinfo($upload->file, PATHINFO_EXTENSION) == 'jfif'
                                     or pathinfo($upload->file, PATHINFO_EXTENSION) == 'jpg'
                                     or pathinfo($upload->file, PATHINFO_EXTENSION) == 'jpeg'
