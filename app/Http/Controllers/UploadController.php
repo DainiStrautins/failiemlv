@@ -47,11 +47,17 @@ class UploadController extends Controller
         $uploads=Upload::where('user_id','=', $user_id)
             ->get();
         $count = $uploads->count();
+        $full_size = 0;
+        foreach($uploads as $upload)
+        {
+            $full_size += $upload->size;
+        }
         $date = Upload::latest('created_at')->first();
         return view('/user')
             ->with(['uploads'=>$uploads])
             ->with(['date' =>$date])
-            ->with(['count' =>$count]
+            ->with(['count' =>$count])
+            ->with(['full_size' =>$full_size]
             );
     }
     public function GetAllRecords(){
@@ -59,12 +65,6 @@ class UploadController extends Controller
         return view('allrecords')->with(['uploads'=>$uploads]);
 
     }
-    public function GetDetails(){
-        $uploads=  Upload::get();
-        return view('sidebar')->with(['uploads'=>$uploads]);
-
-    }
-
     public function delete($id){
         $userRoles = Auth::user()->roles->pluck('name');
         if (!$userRoles->contains('admin')){

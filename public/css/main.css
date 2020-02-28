@@ -108,12 +108,23 @@ body{
     padding: 0 !important;
     margin: 0 !important;
 }
-.checkbox-layout{
-    position:absolute; top:5px; right:5px;
-}
 .bottom-center {
     position: absolute;
     left: 0;
     top: 75%;
     width: 100%;
 }
+a.close{
+    position: absolute;
+    top:4px;
+    right:4px;
+}
+.deep-blue-gradient{
+    background: linear-gradient(0deg, #e0c3fc 1%, #8ec5fc 99%);
+    height: 93vh;
+}
+.center{
+    top:50%;
+}
+
+

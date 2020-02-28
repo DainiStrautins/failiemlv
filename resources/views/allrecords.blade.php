@@ -8,7 +8,7 @@
                     <div class="col-xl-2 col-lg-4 col-sm-6 nopadding border border-secondary rounded bg-light">
                         <div class="mx-auto p-4 checkbox text-center" data-rel="popover" title="<strong>{{ $upload->uploader->name}}'s file details:</strong>"
                              data-content="<p class='text-body  text-center'>{{ $upload->file}} </p>
-                                            <p class='body-text text-center'>{{$upload->size}}</p>
+                                            <p class='body-text text-center'>{{HumanReadable::bytesToHuman($upload->size)}}</p>
                                             <p class='body-text text-center'>{{$upload->created_at}}</p>" data-placement="top">
                             @if (pathinfo($upload->file, PATHINFO_EXTENSION) == 'jfif'
                                 or pathinfo($upload->file, PATHINFO_EXTENSION) == 'jpg'

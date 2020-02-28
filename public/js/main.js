@@ -20,3 +20,8 @@ function handleFileSelect(evt) {
 
 document.getElementById('filename').addEventListener('change', handleFileSelect, false);
 
+$(document).ready(function(){
+    $("a.close").click(function(){
+        $("#left").toggle();
+    });
+});

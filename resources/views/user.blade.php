@@ -5,26 +5,23 @@
         <div id="left" class="col-md-3">
             <form class="py-2" action="" method="POST" enctype="multipart/form-data">
                 @csrf
+                <a class="close"> <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> </a>
                 <div id="upload_info">
                     <h1 class="editable_field_text"></h1>
-                    All your files deletes at: {{ $date->created_at->addDays(14)->toDateString() }}
+                    All your files deletes at: {{ $date->created_at->addMonths(3)->toDateString() }}
                     <i class="fa fa-question-circle btn btn-small btn-outline-primary"
                       aria-hidden="true"
                       data-rel="popover"
                       title="<strong>Attention</strong>"
-                      data-content="<p class='text-body text-center'>Every time you upload a new file, your file experation on this folder extends</p> <p class='text-body text-center'> (14 days + latest file, {{  $date->created_at->addDays(14)->toDateString()}}) </p>" data-placement="top">
+                      data-content="<p class='text-body text-center'>Every time you upload a new file, your file experation on this folder extends</p> <p class='text-body text-center'> (3 Months + latest file, {{  $date->created_at->addMonths(3)->toDateString()}}) </p>" data-placement="top">
                     </i>
 
                     <ul>
-                        <li>
-                            <span class="upload_info_details_text">File count: {{ $count }}</span>
-                        </li>
-                        <li>
-                            <span class="upload_info_details_text">File size: </span>
-                        </li>
+                        <i class="fa fa-user-o" aria-hidden="true"></i> {{ $date->uploader->name }}<br/>
+                        <i class="fa fa-files-o" aria-hidden="true"></i> {{ $count }} <br/>
+                        <i class="fa fa-pie-chart" aria-hidden="true"></i> {{ HumanReadable::bytesToHuman($full_size) }}<br/>
+                        <i class="fa fa-calendar-o" aria-hidden="true"></i> {{ $date->created_at->toDateString() }}<br/>
                     </ul>
-                    <div id="upload_info_image">
-                    </div>
                 </div>
                 <div id="upload_description_edit" class="editable_field_wrapper">
                     <div class="editable_field_text">
@@ -44,11 +41,10 @@
                     </div>
                 </div>
                 <div class="after-upload mt-5">
-                    <button type="submit" class="file btn btn-lg btn-outline-primary btn-block rounded-pill">
-                        Upload your files now!
-                    </button>
+                    <input type="submit" class="file btn btn-lg btn-outline-primary btn-block rounded-pill">
+
                 </div>
-                <input class="upload-button hide-after mt-5" id="filename" type="file" multiple name="file[]"/>
+                <input class="upload-button hide-after mt-5" id="filename" type="file" multiple name="file[]" value=" Add your files now!"/>
             </form>
         </div>
         <div id="right" class="col-lg-9 col-sm-12 ">
@@ -58,7 +54,7 @@
                         <div class="col-xl-2 col-lg-4 col-sm-6 nopadding border border-secondary rounded bg-light">
                             <div class="mx-auto p-4 text-center" data-rel="popover" title="<strong>Your file details:</strong>"
                                  data-content="<p class='text-body  text-center'>{{ $upload->file}} </p>
-                                   <p class='body-text text-center'>{{$upload->size}}</p>
+                                   <p class='body-text text-center'>{{HumanReadable::bytesToHuman($upload->size)}}</p>
                                    <p class='body-text text-center'>Created at: {{$upload->created_at}}</p>
                                    <p class='body-text text-center'>Deleting inevitably: {{$upload->created_at->addDays(7)->toDateString()}}</p>" data-placement="top">
                                 @if (pathinfo($upload->file, PATHINFO_EXTENSION) == 'jfif'
