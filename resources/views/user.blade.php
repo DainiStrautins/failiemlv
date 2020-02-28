@@ -2,11 +2,12 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
+        <a class="close2"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i> </a>
         <div id="left" class="col-md-3">
             <form class="py-2" action="" method="POST" enctype="multipart/form-data">
                 @csrf
+                <h1> <textarea class="folder_name" rows="1">{{$date->file}}</textarea></h1>
                 <a class="close"> <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> </a>
-                <div id="upload_info">
                     <h1 class="editable_field_text"></h1>
                     All your files deletes at: {{ $date->created_at->addMonths(3)->toDateString() }}
                     <i class="fa fa-question-circle btn btn-small btn-outline-primary"
@@ -15,34 +16,14 @@
                       title="<strong>Attention</strong>"
                       data-content="<p class='text-body text-center'>Every time you upload a new file, your file experation on this folder extends</p> <p class='text-body text-center'> (3 Months + latest file, {{  $date->created_at->addMonths(3)->toDateString()}}) </p>" data-placement="top">
                     </i>
-
                     <ul>
                         <i class="fa fa-user-o" aria-hidden="true"></i> {{ $date->uploader->name }}<br/>
                         <i class="fa fa-files-o" aria-hidden="true"></i> {{ $count }} <br/>
                         <i class="fa fa-pie-chart" aria-hidden="true"></i> {{ HumanReadable::bytesToHuman($full_size) }}<br/>
                         <i class="fa fa-calendar-o" aria-hidden="true"></i> {{ $date->created_at->toDateString() }}<br/>
                     </ul>
-                </div>
-                <div id="upload_description_edit" class="editable_field_wrapper">
-                    <div class="editable_field_text">
-
-                    </div>
-                    <div class="editable_field_error_msg"></div>
-                    <textarea class="editable_field_textarea" rows="1"></textarea>
-                    <div class="editable_field_edit_button">
-                        <div class="editable_field_edit_button_text">
-                            <i class="fa fa-edit"></i>
-                            <span>Pievienot mapes aprakstu</span>
-                        </div>
-                    </div>
-                    <div class="editable_field_save_button">
-                        <i class="fa fa-floppy-o"></i>
-                        Saglabāt
-                    </div>
-                </div>
                 <div class="after-upload mt-5">
                     <input type="submit" class="file btn btn-lg btn-outline-primary btn-block rounded-pill">
-
                 </div>
                 <input class="upload-button hide-after mt-5" id="filename" type="file" multiple name="file[]" value=" Add your files now!"/>
             </form>

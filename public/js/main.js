@@ -22,6 +22,11 @@ document.getElementById('filename').addEventListener('change', handleFileSelect,
 
 $(document).ready(function(){
     $("a.close").click(function(){
+
         $("#left").toggle();
+        $("a.close2").show();
+        $("a.close").click(function(){
+            $("#left").toggle();
+        });
     });
 });
