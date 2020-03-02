@@ -9,7 +9,7 @@
             <div id="landing-section" class="text-center">
                 <form id="myform" class="py-2" action="" method="post" enctype="multipart/form-data">
                     @csrf
-                    <div id="drop_zone" class="p-4">
+                    <div id="drop_zone" class="py-5">
 
                         <!-- Main page -->
                         <div class="hide-after">
@@ -20,7 +20,6 @@
                                 <p class="text-danger pt-2">{{ $message }}</p>
                                 @enderror
                             </div>
-                            <p class="text-primary pt-3">Or Drop files here</p>
                         </div>
 
                         <!--This form will only show after person has submitted a file/s-->

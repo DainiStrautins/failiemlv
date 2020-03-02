@@ -29,12 +29,12 @@
                         <div class="input-group-text"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
                     </div>
                     <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-                </div>
-                @error('email')
-                <span class="invalid-feedback" role="alert">
+                    @error('email')
+                    <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+                    </span>
+                    @enderror
+                </div>
             </div>
         </div>
         <div class="form-group row px-3">
@@ -45,12 +45,14 @@
                         <div class="input-group-text"><i class="fa fa-lock" aria-hidden="true"></i></div>
                     </div>
                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
                 </div>
-                @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
+
+
             </div>
         </div>
         <div class="form-group row px-3">

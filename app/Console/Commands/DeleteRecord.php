@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Upload;
-use Carbon\Carbon;
 
 class DeleteRecord extends Command
 {
@@ -47,7 +46,7 @@ class DeleteRecord extends Command
             $latest = Upload::latest('created_at')->pluck('created_at')->first();
             $oldest = Upload::oldest('created_at')->pluck('created_at')->first();
             $filename = Upload::oldest('created_at')->pluck('file')->first();
-            if (now()->diffInDays($latest) > 14) {
+            if (now()->diffInMonths($latest) > 3) {
                 $Upload = Upload::where('user_id',$user->user_id)->delete();
                 dd($latest,'Deleted all records because of:',$filename);
             }

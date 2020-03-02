@@ -1,5 +1,4 @@
 @extends('layouts.form')
-
 @section('body')
     <div class="card-body">
         <h3 class="title text-primary">ACCOUNT LOGIN</h3>
@@ -13,12 +12,13 @@
                             <div class="input-group-text"><i class="fa fa-envelope-o" aria-hidden="true"></i></div>
                         </div>
                         <input id="email" type="email"  class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                    </div>
-                    @error('email')
+                        @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                    @enderror
+                        @enderror
+                    </div>
+
                 </div>
             </div>
 
@@ -30,12 +30,13 @@
                             <div class="input-group-text"><i class="fa fa-lock" aria-hidden="true"></i></div>
                         </div>
                         <input id="password" type="password"  class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                    </div>
+
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                    @enderror
+                        @enderror
+                    </div>
                 </div>
             </div>
 

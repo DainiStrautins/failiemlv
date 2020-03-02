@@ -8,7 +8,7 @@
                     <div class="card-header">DashBoard</div>
 
                     <div class="card-body">
-    @yield('inside')
+                        @yield('inside')
                     </div>
                 </div>
             </div>

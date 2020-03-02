@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\Upload;
 use Auth;
-use DB;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -40,6 +39,26 @@ class UploadController extends Controller
 
             }
             return redirect('/user');
+        }
+    }
+    public function storeadmin(request $request)
+    {
+        if ($request->hasFile('file'))
+        {
+            foreach ($request->file as $file){
+                $filename = $file->getClientOriginalName();
+
+                $filesize = $file->getClientSize();
+
+                $file->storeAs('public/files',$filename);
+                $Upload = new Upload;
+                $Upload->user_id= auth()->user()->id;
+                $Upload->file = $filename;
+                $Upload->size = $filesize;
+                $Upload->save();
+
+            }
+            return redirect('/allrecords');
         }
     }
     public function get(){
@@ -107,19 +126,17 @@ class UploadController extends Controller
         return redirect('/user');
     }
     public function AdminDelete($id){
-        Upload::find($id)->delete();
+        User::find($id)->delete();
         return redirect('/admin');
     }
     public function indexAdminDelete($id){
-        $uploads = Upload::get();
-        $userRoles = Auth::user()->roles->pluck('name');
-        if (!$userRoles->contains('admin')){
-            return redirect('/permission-denied');
+        if(Auth::user()->id == $id)
+        {
+            return view('nopermission');
         }else{
             return view('DeleteAdmin' , [
-                'offer' => Upload::where('id', $id)->firstOrFail(),
-            ])
-                ->with(['uploads'=>$uploads]);
+                'users' => User::where('id', $id)->firstOrFail(),
+            ]);
         }
     }
 }
