@@ -7,6 +7,9 @@
                 <div class="card my-2 mx-2" >
                     <div class="card-body">
                         @if ($user->id != Auth::user()->id)
+                            <div class="top-right">
+                                <a class="text-danger top-right" href="admin/delete/{{ $user->id }}"><i class="fa fa-minus-square" aria-hidden="true"></i> </a>
+                            </div>
                             <h5 class="card-title text-muted">  {{$user->name}}
                                 @else
                                     <h5 class="card-title">   <b>You</b>

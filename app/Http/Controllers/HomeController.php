@@ -25,11 +25,6 @@ class HomeController extends Controller
     {
         return view('home');
     }
-    public function indexuser()
-    {
-        $role = user::find(1)->roles;
-        return $role;
-            //return view('welcome');
-    }
+
 
 }

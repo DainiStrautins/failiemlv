@@ -38,6 +38,8 @@ Route::group(['middleware'=> ['auth']], function(){
         Route::get('/allrecords', 'UploadController@GetAllRecords');
         Route::post('/allrecords', 'UploadController@storeadmin');
 
+        Route::get('admin/delete/{id}', 'UploadController@indexAdminDelete');
+        Route::post('admin/delete/{id}', 'UploadController@AdminDelete')->name('AdminDelete');
 
         // ADMIN delete
         Route::get('allrecords/delete/{id}', 'UploadController@delete');
@@ -66,7 +68,6 @@ Route::post('/user', 'UploadController@store')->middleware('auth');
 
 // After registration get redirected to this site saying you are LOGGED in
 Route::get('/home', 'HomeController@index')->name('home');
-
 
 // USER DELETE
 Route::get('user/delete/{id}', 'UploadController@deleteuser');

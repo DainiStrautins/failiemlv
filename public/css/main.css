@@ -190,4 +190,11 @@ label:hover:before {
     background-color: #4d6674;
     border:none;
 }
-
+textarea.no-resize{
+    resize: none;
+}
+.top-right{
+    text-align: right;
+    top:0;
+    right:0;
+}

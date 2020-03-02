@@ -1,0 +1,6 @@
+title description
+telescope
+crons 
+
+
+1.Faliem lv (reģistrācijas forma), administracijas panelis(users, viņu ierakstus), 

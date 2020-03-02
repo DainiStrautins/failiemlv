@@ -2,12 +2,10 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <a class="close2"><i class="fa fa-caret-square-o-right" aria-hidden="true"></i> </a>
         <div id="left" class="col-md-3">
             <form class="py-2" action="" method="POST" enctype="multipart/form-data">
                 @csrf
-                <h1> <textarea class="folder_name" rows="1">{{$date->file}}</textarea></h1>
-                <a class="close"> <i class="fa fa-caret-square-o-left" aria-hidden="true"></i> </a>
+                <h1> <textarea class="form-control no-resize" rows="1">{{$date->file}} </textarea></h1>
                     <h1 class="editable_field_text"></h1>
                     All your files deletes at: {{ $date->created_at->addMonths(3)->toDateString() }}
                     <i class="fa fa-question-circle btn btn-small btn-outline-primary"

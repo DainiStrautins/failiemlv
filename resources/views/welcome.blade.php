@@ -41,8 +41,8 @@
                                     Upload your files now!
                                 </button>
                             </div>
-                            <output class="col-lg-12 " id="fullsize"></output>
                             <output class="col-lg-12 " id="list"></output>
+                            <output class="col-lg-12 " id="drop"></output>
                             <output class="col-lg-12 " id="output"></output>
                         </div>
                     </div>

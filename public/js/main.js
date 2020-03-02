@@ -5,7 +5,7 @@ $('input[type=file]').change(function(){
 
 function handleFileSelect(evt) {
     var files = evt.target.files; // FileList object
-
+    if (files.length >= 1){
     // files is a FileList of File objects. List some properties.
     var output = [];
     for (var i = 0, f; f = files[i]; i++) {
@@ -15,18 +15,7 @@ function handleFileSelect(evt) {
             '</div></div>');
     }
     document.getElementById('list').innerHTML = '<div class="container text-body">' + output.join('') + '</div>';
-
+    }
 }
 
 document.getElementById('filename').addEventListener('change', handleFileSelect, false);
-
-$(document).ready(function(){
-    $("a.close").click(function(){
-
-        $("#left").toggle();
-        $("a.close2").show();
-        $("a.close").click(function(){
-            $("#left").toggle();
-        });
-    });
-});

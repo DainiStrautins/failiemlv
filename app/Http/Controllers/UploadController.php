@@ -62,7 +62,17 @@ class UploadController extends Controller
     }
     public function GetAllRecords(){
         $uploads = Upload::get();
-        return view('allrecords')->with(['uploads'=>$uploads]);
+        $full_size = 0;
+        foreach($uploads as $upload)
+        {
+            $full_size += $upload->size;
+        }
+        $count = $uploads->count();
+        return view('allrecords')
+            ->with(['uploads'=>$uploads])
+            ->with(['count' =>$count])
+            ->with(['full_size' =>$full_size]
+            );
 
     }
     public function delete($id){
@@ -96,5 +106,20 @@ class UploadController extends Controller
         Upload::find($id)->delete();
         return redirect('/user');
     }
-
+    public function AdminDelete($id){
+        Upload::find($id)->delete();
+        return redirect('/admin');
+    }
+    public function indexAdminDelete($id){
+        $uploads = Upload::get();
+        $userRoles = Auth::user()->roles->pluck('name');
+        if (!$userRoles->contains('admin')){
+            return redirect('/permission-denied');
+        }else{
+            return view('DeleteAdmin' , [
+                'offer' => Upload::where('id', $id)->firstOrFail(),
+            ])
+                ->with(['uploads'=>$uploads]);
+        }
+    }
 }
