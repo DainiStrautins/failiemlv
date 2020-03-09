@@ -14,8 +14,8 @@
                         <!-- Main page -->
                         <div class="hide-after">
                             <div id="title">Store, Share Files</div>
-                            <div class="col-md-7 col-sm-7 mx-auto pt-3 ">
-                                <input class="upload-button" id="filename" type="file" multiple name="file[]"/>
+                            <div class="col-md-7 col-sm-7 mx-auto pt-3">
+                                <input class="upload-button mt-3" id="filename" type="file" multiple name="file[]"/>
                                 @error('file')
                                 <p class="text-danger pt-2">{{ $message }}</p>
                                 @enderror
@@ -35,7 +35,7 @@
                             <div class="col-md-7 col-sm-7 mx-auto pt-3 ">
                                 <input class="add-button" type="file" id="file" name="file[]" multiple />
                             </div>
-                            <div class="col-md-8 col-sm-8 mt-3 mx-auto">
+                            <div class="col-md-8 col-sm-8 my-3 mx-auto">
                                 <button type="submit" class="file btn btn-lg btn-outline-primary btn-block rounded-pill border-primary">
                                     Upload your files now!
                                 </button>
