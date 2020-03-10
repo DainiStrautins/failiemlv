@@ -29,8 +29,9 @@ class UploadController extends Controller
                 $filename = $file->getClientOriginalName();
 
                 $filesize = $file->getClientSize();
+                //dd($filename);  123.jpg
 
-                $file->storeAs('public/files',$filename);
+                $file->storeAs('/files',$filename);
                 $Upload = new Upload;
                 $Upload->user_id= auth()->user()->id;
                 $Upload->file = $filename;
@@ -49,9 +50,8 @@ class UploadController extends Controller
                 $filename = $file->getClientOriginalName();
 
                 $filesize = $file->getClientSize();
-
-                $file->storeAs('public/files',$filename);
                 $Upload = new Upload;
+                $file->storeAs('/files',$filename);
                 $Upload->user_id= auth()->user()->id;
                 $Upload->file = $filename;
                 $Upload->size = $filesize;
@@ -63,15 +63,16 @@ class UploadController extends Controller
     }
     public function get(){
         $user_id = auth()->id();
-        $uploads=Upload::where('user_id','=', $user_id)
-            ->get();
-        $count = $uploads->count();
+        $uploads=Upload::where('user_id','=', $user_id)->get();
         $full_size = 0;
         foreach($uploads as $upload)
         {
             $full_size += $upload->size;
         }
+        $date = Upload::where('user_id','=', $user_id)->latest('created_at')->first();
         $date = Upload::latest('created_at')->first();
+
+        $count = $uploads->count();
         return view('/user')
             ->with(['uploads'=>$uploads])
             ->with(['date' =>$date])

@@ -69,10 +69,6 @@
                                             {{ __('Admins') }}
                                         </a>
                                     @endif
-
-                                    <a class="dropdown-item" href="/home" class="btn btn-primary">
-                                        {{ __('Home') }}
-                                    </a>
                                     <a class="dropdown-item" href="/user" class="btn btn-primary">
                                         {{ __('My uploads') }}
                                     </a>
