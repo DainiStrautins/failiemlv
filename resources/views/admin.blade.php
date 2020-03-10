@@ -16,7 +16,7 @@
                                         @endif
                                         @foreach($user->roles as $role)
                                             <small class="text-muted">({{$role->name}})</small>
-                                        <p><small class="text-muted">{{$user->email}}</small></p>
+                                            <p><small class="text-muted">{{$user->email}}</small></p>
                                         @endforeach
                                     </h5>
                             </h5>

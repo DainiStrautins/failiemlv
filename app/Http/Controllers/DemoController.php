@@ -8,7 +8,7 @@ class DemoController extends Controller
 {
     public function usersDemo()
     {
-        return view('user');
+        return view('users');
     }
     public function adminDemo()
     {

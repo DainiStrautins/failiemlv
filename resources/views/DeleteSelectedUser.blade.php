@@ -24,7 +24,7 @@
                                 or pathinfo($offer->file, PATHINFO_EXTENSION) == 'jpeg'
                                 or pathinfo($offer->file, PATHINFO_EXTENSION) == 'png'
                                 or pathinfo($offer->file, PATHINFO_EXTENSION) == 'gif')
-                <img  class="img-fluid" src="{{ asset('public/files/'.$offer->file)}}">
+                <img  class="img-fluid" src="{{ asset('storage/files/'.$offer->file)}}">
             @endif
         </div>
     </form>

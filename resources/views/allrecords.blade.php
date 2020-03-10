@@ -5,7 +5,6 @@
             <div id="left" class="col-md-3">
                 <form class="py-2" action="" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <h1 class="editable_field_text">Details:</h1>
                     <ul>
                         <i class="fa fa-files-o" aria-hidden="true"></i> {{ $count }} <br/>
                         <i class="fa fa-pie-chart" aria-hidden="true"></i> {{ HumanReadable::bytesToHuman($full_size) }}<br/>
@@ -30,7 +29,7 @@
                                         or pathinfo($upload->file, PATHINFO_EXTENSION) == 'jpeg'
                                         or pathinfo($upload->file, PATHINFO_EXTENSION) == 'png'
                                         or pathinfo($upload->file, PATHINFO_EXTENSION) == 'gif')
-                                        <img  class="img-fluid mx-auto d-block rounded-circle" style="height: 50px; width:50px;" src="{{ asset('public/files/'.$upload->file)}}">
+                                        <img  class="img-fluid mx-auto d-block rounded-circle" style="height: 50px; width:50px;" src="{{ asset('storage/files/'.$upload->file) }}">
                                     @else <img  class="img-fluid mx-auto d-block" style="height: 45px; width:30px;" src="https://i.pinimg.com/originals/d0/78/22/d078228e50c848f289e39872dcadf49d.png" > @endif
                                     <div class="my-3">
                                         <a class="text-danger bottom-center" href="allrecords/delete/{{ $upload->id }}"><i class="fa fa-minus-square" aria-hidden="true"></i> </a>

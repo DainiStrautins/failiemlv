@@ -42,6 +42,61 @@ class UploadController extends Controller
             return redirect('/user');
         }
     }
+
+    public function get(){
+        $user_id = auth()->id();
+        $uploads=Upload::where('user_id','=', $user_id)->get();
+        $full_size = 0;
+        foreach($uploads as $upload)
+        {
+            $full_size += $upload->size;
+        }
+        $date = Upload::latest('created_at')->first();
+
+        $count = $uploads->count();
+        return view('/user')
+            ->with(['uploads'=>$uploads])
+            ->with(['date' =>$date])
+            ->with(['count' =>$count])
+            ->with(['full_size' =>$full_size]
+            );
+    }
+
+
+    public function deleteuser($id){
+        $userRoles = Auth::user()->roles->pluck('name');
+        $currentuser = Auth::user()->id;
+        $uploaduser = Upload::where('id',$id)->value('user_id');
+        if (($currentuser != $uploaduser) and (!$userRoles->contains('admin'))){
+            return redirect('/permission-denied');
+        } else{
+            return view('DeleteSelectedUser' , [
+                'offer' => Upload::where('id', $id)->firstOrFail(),
+            ]);
+        }
+    }
+    public function commituser($id){
+        Upload::find($id)->delete();
+        return redirect('/user');
+    }
+
+
+    // ---------------------------------------------------------//
+    public function GetAllRecords(){
+        $uploads = Upload::get();
+        $full_size = 0;
+        foreach($uploads as $upload)
+        {
+            $full_size += $upload->size;
+        }
+        $count = $uploads->count();
+        return view('allrecords')
+            ->with(['uploads'=>$uploads])
+            ->with(['count' =>$count])
+            ->with(['full_size' =>$full_size]
+            );
+
+    }
     public function storeadmin(request $request)
     {
         if ($request->hasFile('file'))
@@ -61,40 +116,6 @@ class UploadController extends Controller
             return redirect('/allrecords');
         }
     }
-    public function get(){
-        $user_id = auth()->id();
-        $uploads=Upload::where('user_id','=', $user_id)->get();
-        $full_size = 0;
-        foreach($uploads as $upload)
-        {
-            $full_size += $upload->size;
-        }
-        $date = Upload::where('user_id','=', $user_id)->latest('created_at')->first();
-        $date = Upload::latest('created_at')->first();
-
-        $count = $uploads->count();
-        return view('/user')
-            ->with(['uploads'=>$uploads])
-            ->with(['date' =>$date])
-            ->with(['count' =>$count])
-            ->with(['full_size' =>$full_size]
-            );
-    }
-    public function GetAllRecords(){
-        $uploads = Upload::get();
-        $full_size = 0;
-        foreach($uploads as $upload)
-        {
-            $full_size += $upload->size;
-        }
-        $count = $uploads->count();
-        return view('allrecords')
-            ->with(['uploads'=>$uploads])
-            ->with(['count' =>$count])
-            ->with(['full_size' =>$full_size]
-            );
-
-    }
     public function delete($id){
         $userRoles = Auth::user()->roles->pluck('name');
         if (!$userRoles->contains('admin')){
@@ -106,26 +127,14 @@ class UploadController extends Controller
         }
     }
 
+    // ---------------------------------------------------------//
+
+
     public function commit($id){
         Upload::find($id)->delete();
         return redirect('/allrecords');
     }
-    public function deleteuser($id){
-        $userRoles = Auth::user()->roles->pluck('name');
-        $currentuser = Auth::user()->id;
-        $uploaduser = Upload::where('id',$id)->value('user_id');
-        if (($currentuser != $uploaduser) and (!$userRoles->contains('admin'))){
-                return redirect('/permission-denied');
-        } else{
-            return view('DeleteSelectedUser' , [
-                'offer' => Upload::where('id', $id)->firstOrFail(),
-            ]);
-        }
-    }
-    public function commituser($id){
-        Upload::find($id)->delete();
-        return redirect('/user');
-    }
+
     public function AdminDelete($id){
         User::find($id)->delete();
         return redirect('/admin');
