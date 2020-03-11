@@ -16,7 +16,7 @@
 // Database storing registered users
 
 Auth::routes();
-
+Route::get('/home', 'HomeController@index')->name('home');
 
 // Secondary authentication, roles (Admin and User)
 Route::group(['middleware'=> ['auth']], function(){
@@ -64,15 +64,7 @@ Route::get('/user', 'UploadController@get')->middleware('auth');
 // Outputs all current user records (if no records, gets msg)
 Route::post('/user', 'UploadController@store')->middleware('auth');
 
-
-
-// After registration get redirected to this site saying you are LOGGED in
-Route::get('/home', 'HomeController@index')->name('home');
-
 // USER DELETE
 Route::get('user/delete/{id}', 'UploadController@deleteuser');
 Route::post('user/delete/{id}', 'UploadController@commituser')->name('commituser');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

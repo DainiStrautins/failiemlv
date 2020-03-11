@@ -2,11 +2,14 @@
 
 namespace App\Events;
 
+use Carbon\Traits\Serialization;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use App\User;
+use Illuminate\Queue\SerializesModels;
 
 class UserCreatedEvent
 {
+    use SerializesModels;
 
     /**
      * Create a new event instance.

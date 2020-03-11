@@ -33,7 +33,7 @@ class UploadController extends Controller
 
                 $file->storeAs('/files',$filename);
                 $Upload = new Upload;
-                $Upload->user_id= auth()->user()->id;
+                $Upload->user_id = auth()->user()->id;
                 $Upload->file = $filename;
                 $Upload->size = $filesize;
                 $Upload->save();
@@ -44,24 +44,23 @@ class UploadController extends Controller
     }
 
     public function get(){
-        $user_id = auth()->id();
-        $uploads=Upload::where('user_id','=', $user_id)->get();
+        $uploads = auth()->user()->accessibleProjects();
+
+
+
+        $date = Upload::latest('created_at')->first();
         $full_size = 0;
         foreach($uploads as $upload)
         {
             $full_size += $upload->size;
         }
-        $date = Upload::latest('created_at')->first();
-
-        $count = $uploads->count();
-        return view('/user')
+        return view('/user', compact('uploads'))
             ->with(['uploads'=>$uploads])
             ->with(['date' =>$date])
-            ->with(['count' =>$count])
+            ->with(['count' =>$count = $uploads->count()])
             ->with(['full_size' =>$full_size]
             );
     }
-
 
     public function deleteuser($id){
         $userRoles = Auth::user()->roles->pluck('name');

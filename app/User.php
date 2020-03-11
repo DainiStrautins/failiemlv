@@ -63,4 +63,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Upload::class);
     }
+    public function accessibleProjects()
+    {
+
+        return Upload::where('user_id', $this->id)
+            ->get();
+    }
+
 }

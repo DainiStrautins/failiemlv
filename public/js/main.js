@@ -8,11 +8,22 @@ function handleFileSelect(evt) {
     if (files.length >= 1){
     // files is a FileList of File objects. List some properties.
     var output = [];
+
     for (var i = 0, f; f = files[i]; i++) {
-        output.push('<div class="row"><div class="col-lg-8">', escape(f.name), ' (', f.type || 'n/a', ') - ',
-            f.size, ' bytes</div> <div class="col-lg-4 float-right"> last modified: ',
-            f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-            '</div></div>');
+
+        var times = f.size == 0 ? 0 : Math.floor( Math.log(f.size) / Math.log(1024) );
+        var full_size = ( f.size / Math.pow(1024, times) ).toFixed(2) * 1 + ' ' + ['B', 'kB', 'MB', 'GB', 'TB'][times];
+        file_extension = f.name.substring(f.name.lastIndexOf('.')+1, f.name.length) || f.name;
+
+
+        original_name = f.name.replace(/\.[^/.]+$/, " ");
+        if(original_name.length > 15){
+            complete_file_name= original_name.substring(0, 16) + '...';
+        }else{
+            complete_file_name= original_name + '.'+ file_extension;
+        }
+
+        output.push('<div class="row"><div class="col-lg-8">', escape(complete_file_name),  '</div> <div class="col-lg-4 float-right"> ', full_size ,' </div></div>');
     }
     document.getElementById('list').innerHTML = '<div class="container text-body">' + output.join('') + '</div>';
     }

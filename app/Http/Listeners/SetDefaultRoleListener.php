@@ -27,7 +27,7 @@ class SetDefaultRoleListener
      */
     public function handle(UserCreatedEvent $event)
     {
-        $role = Role::where('name', 'users')->firstOrFail();
+        $role = Role::where('name', 'user')->firstOrFail();
 
         $event->user->roles()->attach($role->id);
     }
