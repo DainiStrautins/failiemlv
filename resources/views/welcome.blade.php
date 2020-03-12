@@ -40,9 +40,14 @@
                                     Upload your files now!
                                 </button>
                             </div>
-                            <output class="col-lg-12 " id="list"></output>
-                            <output class="col-lg-12 " id="drop"></output>
-                            <output class="col-lg-12 " id="output"></output>
+                            <output class="col-lg-12 text-let" id="list">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
+                                    <div id="success">
+
+                                    </div>
+                                </div>
+                            </output>
                         </div>
                     </div>
                 </form>

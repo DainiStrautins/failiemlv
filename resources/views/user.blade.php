@@ -32,11 +32,11 @@
                 </form>
 
             </div>
-            <div id="right" class="col-lg-9 col-sm-12 ">
-                <div class="flex-container" >
+            <div id="right" class="col-lg-9 col-sm-12">
+                <div class="flex-container">
                     <div class="row">
                         @forelse($uploads as $upload)
-                            <div class="col-xl-2 col-lg-4 col-sm-6 nopadding border border-secondary rounded bg-light">
+                            <div class="col-xl-3 col-lg-6 col-sm-6 border border-secondary bg-light">
                                 <div class="mx-auto p-4 text-center" data-rel="popover" title="<strong>Your file details:</strong>"
                                      data-content="<p class='text-body text-center'>{{ $upload->file}} </p>
                                    <p class='body-text text-center'>{{HumanReadable::bytesToHuman($upload->size)}}</p>
