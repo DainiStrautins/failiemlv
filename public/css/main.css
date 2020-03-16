@@ -127,7 +127,7 @@ a.close2{
 }
 .deep-blue-gradient{
     background: linear-gradient(0deg, #e0c3fc 1%, #8ec5fc 99%);
-    height: 93vh;
+    height: 100vh;
 }
 .center{
     top:20%;
@@ -182,10 +182,6 @@ a.close2{
 label:hover:before {
     border: 2px solid #4778d9!important;
 }
-.top{
-    margin-top:5vh;
-}
-
 .folder_name{
     background-color: #4d6674;
     border:none;
