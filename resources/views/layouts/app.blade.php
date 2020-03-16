@@ -79,7 +79,12 @@
                                         </a>
                                     @endif
 
-
+                                    <a class="dropdown-item" href="/subscription" class="btn btn-primary">
+                                        {{ __('Buy an Subscription') }}
+                                    </a>
+                                    <a class="dropdown-item" href="/notifications" class="btn btn-primary">
+                                        {{ __('Your notifications') }}
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
