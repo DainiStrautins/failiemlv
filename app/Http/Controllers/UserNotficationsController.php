@@ -12,4 +12,9 @@ class UserNotficationsController extends Controller
             'notifications' => tap(auth()->user()->unreadNotifications)->markAsRead()
         ]);
     }
+    public function index()
+    {
+        $count = count(auth()->user()->unreadNotifications);
+        return view('main',$count);
+    }
 }

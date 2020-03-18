@@ -24,8 +24,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-</head>
+ </head>
 <body>
 <div id="content">
     <header id="header" class="header">
@@ -38,9 +37,17 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
+                    @guest
 
-                    </ul>
+                        @else
+                        @if(Auth::user()->hasRole('admin'))
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="/main">{{ __('Main') }}</a>
+                            </li>
+                        </ul>
+                            @endif
+                        @endguest
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -75,7 +82,7 @@
                                     </a>
                                     @if(Auth::user()->hasRole('admin'))
                                         <a class="dropdown-item" href="/allrecords" class="btn btn-primary">
-                                            {{ __('All records') }}
+                                            {{ __('Admin view panel') }}
                                         </a>
                                     @endif
 
@@ -94,6 +101,7 @@
 
                                 </div>
                             </li>
+
                         @endguest
                     </ul>
                 </div>

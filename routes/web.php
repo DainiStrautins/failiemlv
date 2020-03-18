@@ -19,16 +19,25 @@ Auth::routes(['verify' => true]);
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Secondary authentication, roles (Admin and User)
-Route::group(['middleware'=> ['auth']], function(){
+Route::group(['middleware'=> ['auth','verified']], function(){
+    Route::get('/main', 'MainController@index');
 
+    // After uploading files you get redirected here (/user)
+    Route::get('/user', 'UploadController@get');
+    // Outputs all current user records (if no records, gets msg)
+    Route::post('/user', 'UploadController@store');
+
+    // USER DELETE
+    Route::get('user/delete/{id}', 'UploadController@deleteuser');
+    Route::post('user/delete/{id}', 'UploadController@commituser')->name('commituser');
     // Users authentication
     Route::get('/permission-denied', 'DemoController@permisionDenied')->name('nopermission');
-    Route::get('/subscription', 'SubscriptionController@create')->middleware('verified');
-    Route::post('/subscription', 'SubscriptionController@store')->middleware('verified');
-    Route::get('/notifications', 'UserNotficationsController@show')->middleware('verified');
-    //Admin authentication
-    Route::group(['middleware'=> ['admin']], function(){
+    Route::get('/subscription', 'SubscriptionController@create');
+    Route::post('/subscription', 'SubscriptionController@store');
+    Route::get('/notifications', 'UserNotficationsController@show');
 
+    //Admin authentication
+    Route::group(['middleware'=> ['admin','verified']], function(){
 
         Route::get('/admin', 'AdminController@index')->name('admin')->middleware('verified');
         Route::get('/admin/remove-admin/{userId}', 'AdminController@removeAdmin')->middleware('verified');
@@ -46,25 +55,11 @@ Route::group(['middleware'=> ['auth']], function(){
         Route::post('allrecords/delete/{id}', 'UploadController@commit')->name('commit')->middleware('verified');
     });
 });
+// Inserts Data into database and redirects further into the website (/user)
+Route::post('/', 'UploadController@store')->middleware('auth');
 
-
-// Start of the landing page
-// Show Landing page
 Route::get('/', function () {
     return view('welcome');
 });
 
-// Inserts Data into database and redirects further into the website (/user)
-Route::post('/', 'UploadController@store')->middleware('auth');
-// End of the landing page
-
-
-// After uploading files you get redirected here (/user)
-Route::get('/user', 'UploadController@get')->middleware('auth')->middleware('verified');
-// Outputs all current user records (if no records, gets msg)
-Route::post('/user', 'UploadController@store')->middleware('auth')->middleware('verified');
-
-// USER DELETE
-Route::get('user/delete/{id}', 'UploadController@deleteuser')->middleware('verified');
-Route::post('user/delete/{id}', 'UploadController@commituser')->name('commituser')->middleware('verified');
 
