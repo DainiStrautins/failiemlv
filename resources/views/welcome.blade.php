@@ -15,7 +15,7 @@
                         <div class="hide-after">
                             <div id="title">Store, Share Files</div>
                             <div class="col-md-7 col-sm-7 mx-auto pt-3">
-                                <input class="upload-button mt-3" id="filename" type="file" multiple name="file[]"/>
+                                <input class="upload-button mt-3" id="filename" type="file" required multiple name="file[]"/>
                                 @error('file')
                                 <p class="text-danger pt-2">{{ $message }}</p>
                                 @enderror
@@ -41,12 +41,6 @@
                                 </button>
                             </div>
                             <output class="col-lg-12 text-let" id="list">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100" style="width: 0%">0%</div>
-                                    <div id="success">
-
-                                    </div>
-                                </div>
                             </output>
                         </div>
                     </div>

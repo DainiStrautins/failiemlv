@@ -20,7 +20,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Secondary authentication, roles (Admin and User)
 Route::group(['middleware'=> ['auth','verified']], function(){
+    Route::post('/', 'UploadController@store');
     Route::get('/main', 'MainController@index');
+    Route::post('/main', 'MainController@store');
 
     // After uploading files you get redirected here (/user)
     Route::get('/user', 'UploadController@get');
@@ -55,8 +57,7 @@ Route::group(['middleware'=> ['auth','verified']], function(){
         Route::post('allrecords/delete/{id}', 'UploadController@commit')->name('commit')->middleware('verified');
     });
 });
-// Inserts Data into database and redirects further into the website (/user)
-Route::post('/', 'UploadController@store')->middleware('auth');
+
 
 Route::get('/', function () {
     return view('welcome');
