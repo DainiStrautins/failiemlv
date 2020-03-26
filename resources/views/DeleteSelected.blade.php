@@ -17,15 +17,6 @@
                 <a href="/allrecords"> <input type="button" value="Go Back" class="btn btn-primary"/> </a>
             </div>
         </div>
-        <div class="col-lg-6 float-right">
-            @if (pathinfo($offer->file, PATHINFO_EXTENSION) == 'jfif'
-                                or pathinfo($offer->file, PATHINFO_EXTENSION) == 'jpg'
-                                or pathinfo($offer->file, PATHINFO_EXTENSION) == 'jpeg'
-                                or pathinfo($offer->file, PATHINFO_EXTENSION) == 'png'
-                                or pathinfo($offer->file, PATHINFO_EXTENSION) == 'gif')
-                <img  class="img-fluid" src="{{ asset('storage/files/'.$offer->file)}}">
-            @endif
-        </div>
 
     </form>
 @endsection

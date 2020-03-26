@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Upload;
 use Auth;
+use Illuminate\Support\Facades\Storage;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -31,7 +32,7 @@ class UploadController extends Controller
                 $filesize = $file->getClientSize();
                 //dd($filename);  123.jpg
 
-                $file->storeAs('/files',$filename);
+                $file->storeAs('/files/'.auth()->user()->name.'/'.auth()->user()->id.'/',$filename);
                 $Upload = new Upload;
                 $Upload->user_id = auth()->user()->id;
                 $Upload->file = $filename;
@@ -75,6 +76,11 @@ class UploadController extends Controller
         }
     }
     public function commituser($id){
+        $file = Upload::find($id)->file;
+        $user_id = Upload::find($id)->user_id;
+        $uploads = Upload::find($id);
+        $uploader = $uploads->uploader->name;
+        Storage::delete('/files/'.$uploader.'/'.$user_id.'/'.$file);
         Upload::find($id)->delete();
         return redirect('/user');
     }
@@ -105,7 +111,7 @@ class UploadController extends Controller
 
                 $filesize = $file->getClientSize();
                 $Upload = new Upload;
-                $file->storeAs('/files',$filename);
+                $file->storeAs('/files/'.auth()->user()->name.'/'.auth()->user()->id.'/',$filename);
                 $Upload->user_id= auth()->user()->id;
                 $Upload->file = $filename;
                 $Upload->size = $filesize;
@@ -130,6 +136,11 @@ class UploadController extends Controller
 
 
     public function commit($id){
+        $file = Upload::find($id)->file;
+        $user_id = Upload::find($id)->user_id;
+        $uploads = Upload::find($id);
+        $uploader = $uploads->uploader->name;
+        Storage::delete('/files/'.$uploader.'/'.$user_id.'/'.$file);
         Upload::find($id)->delete();
         return redirect('/allrecords');
     }

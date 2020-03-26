@@ -47,7 +47,7 @@
                                         or pathinfo($upload->file, PATHINFO_EXTENSION) == 'jpeg'
                                         or pathinfo($upload->file, PATHINFO_EXTENSION) == 'png'
                                         or pathinfo($upload->file, PATHINFO_EXTENSION) == 'gif')
-                                        <img class="img-fluid mx-auto d-block rounded-circle" style="height: 50px; width:50px;" src="{{ asset('storage/files/'.$upload->file) }}">
+                                        <img class="img-fluid mx-auto d-block rounded-circle" style="height: 50px; width:50px;" src="{{ asset('storage/files/'.auth()->user()->name.'/'.auth()->user()->id.'/'.$upload->file) }}">
                                     @else
                                         <img class="img-fluid mx-auto d-block" style="height: 45px; width:30px;" src="https://i.pinimg.com/originals/d0/78/22/d078228e50c848f289e39872dcadf49d.png" >
                                     @endif

@@ -15,6 +15,6 @@ class SubscriptionController extends Controller
     public function store()
     {
     request()->user()->notify(new PaymentReceived(9));
-    return redirect('/');
+    return redirect('/subscription');
     }
 }
