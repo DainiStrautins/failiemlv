@@ -6,6 +6,7 @@
 
 body{
     background-color:  #ebecec;
+    font-family: 'Baloo 2', cursive;
 }
 #title{
     color: #2a3f51;
@@ -193,4 +194,13 @@ textarea.no-resize{
     text-align: right;
     top:0;
     right:0;
+}
+.modal-header{
+    background-color: #ff3547;
+}
+@media (min-width: 576px)
+{
+    .modal-sm {
+        max-width: 350px!important;
+    }
 }
