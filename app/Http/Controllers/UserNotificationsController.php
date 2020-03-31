@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class UserNotficationsController extends Controller
+class UserNotificationsController extends Controller
 {
     public function show()
     {

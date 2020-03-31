@@ -36,7 +36,7 @@ Route::group(['middleware'=> ['auth','verified']], function(){
     Route::get('/permission-denied', 'DemoController@permisionDenied')->name('nopermission');
     Route::get('/subscription', 'SubscriptionController@create');
     Route::post('/subscription', 'SubscriptionController@store');
-    Route::get('/notifications', 'UserNotficationsController@show');
+    Route::get('/notifications', 'UserNotificationsController@show');
 
     //Admin authentication
     Route::group(['middleware'=> ['admin','verified']], function(){

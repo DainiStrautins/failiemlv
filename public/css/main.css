@@ -6,7 +6,6 @@
 
 body{
     background-color:  #ebecec;
-    font-family: 'Baloo 2', cursive;
 }
 #title{
     color: #2a3f51;
@@ -104,7 +103,11 @@ body{
     #left {
         display: none;
     }
+    #content{
+        height: 100%;
+    }
 }
+
 .nopadding {
     padding: 0 !important;
     margin: 0 !important;
@@ -195,12 +198,12 @@ textarea.no-resize{
     top:0;
     right:0;
 }
-.modal-header{
-    background-color: #ff3547;
-}
 @media (min-width: 576px)
 {
     .modal-sm {
         max-width: 350px!important;
     }
+}
+.pointer{
+    cursor:pointer;
 }
