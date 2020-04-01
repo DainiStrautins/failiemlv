@@ -21,71 +21,6 @@ class UploadController extends Controller
         return view('welcome');
     }
 
-
-    public function store(request $request)
-    {
-        if ($request->hasFile('file'))
-        {
-            foreach ($request->file as $file){
-                $filename = $file->getClientOriginalName();
-
-                $filesize = $file->getClientSize();
-                //dd($filename);  123.jpg
-
-                $file->storeAs('/files/'.auth()->user()->name.'/'.auth()->user()->id.'/',$filename);
-                $Upload = new Upload;
-                $Upload->user_id = auth()->user()->id;
-                $Upload->file = $filename;
-                $Upload->size = $filesize;
-                $Upload->save();
-
-            }
-            return redirect('/user');
-        }
-    }
-
-    public function get(){
-        $uploads = auth()->user()->accessibleProjects();
-
-
-
-        $date = Upload::latest('created_at')->first();
-        $full_size = 0;
-        foreach($uploads as $upload)
-        {
-            $full_size += $upload->size;
-        }
-        return view('/user', compact('uploads'))
-            ->with(['uploads'=>$uploads])
-            ->with(['date' =>$date])
-            ->with(['count' =>$count = $uploads->count()])
-            ->with(['full_size' =>$full_size]
-            );
-    }
-
-    public function deleteuser($id){
-        $userRoles = Auth::user()->roles->pluck('name');
-        $currentuser = Auth::user()->id;
-        $uploaduser = Upload::where('id',$id)->value('user_id');
-        if (($currentuser != $uploaduser) and (!$userRoles->contains('admin'))){
-            return redirect('/permission-denied');
-        } else{
-            return view('DeleteSelectedUser' , [
-                'offer' => Upload::where('id', $id)->firstOrFail(),
-            ]);
-        }
-    }
-    public function commituser($id){
-        $file = Upload::find($id)->file;
-        $user_id = Upload::find($id)->user_id;
-        $uploads = Upload::find($id);
-        $uploader = $uploads->uploader->name;
-        Storage::delete('/files/'.$uploader.'/'.$user_id.'/'.$file);
-        Upload::find($id)->delete();
-        return redirect('/user');
-    }
-
-
     // ---------------------------------------------------------//
     public function GetAllRecords(){
         $uploads = Upload::get();
@@ -120,6 +55,7 @@ class UploadController extends Controller
             }
             return redirect('/allrecords');
         }
+        return redirect('/');
     }
     public function delete($id){
         $userRoles = Auth::user()->roles->pluck('name');
@@ -136,27 +72,10 @@ class UploadController extends Controller
 
 
     public function commit($id){
-        $file = Upload::find($id)->file;
-        $user_id = Upload::find($id)->user_id;
         $uploads = Upload::find($id);
-        $uploader = $uploads->uploader->name;
-        Storage::delete('/files/'.$uploader.'/'.$user_id.'/'.$file);
+        Storage::delete('/files/'.$uploads->uploader->name.'/'.$uploads->user_id.'/'.$uploads->file);
         Upload::find($id)->delete();
         return redirect('/allrecords');
     }
 
-    public function AdminDelete($id){
-        User::find($id)->delete();
-        return redirect('/admin');
-    }
-    public function indexAdminDelete($id){
-        if(Auth::user()->id == $id)
-        {
-            return view('nopermission');
-        }else{
-            return view('DeleteAdmin' , [
-                'users' => User::where('id', $id)->firstOrFail(),
-            ]);
-        }
-    }
 }

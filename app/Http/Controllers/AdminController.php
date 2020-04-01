@@ -1,46 +1,62 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
 use App\User;
-use App\Role;
-
 
 class AdminController extends Controller
 {
     public function index()
     {
-        $users = User::with('roles')->get();
-
-        return view('admin', ['users'=> $users]);
+        $users = auth()->user()->getallusers();
+        return view('admin', compact('users'));
     }
-    public function giveAdmin($userId)
+    public function update($userId)
     {
         $user = User::where('id', $userId)->firstOrFail();
 
-        $adminRole = Role::where('name', 'admin')->firstOrFail();
+        $adminRole =  auth()->user()->getAdmin();
 
         $user->roles()->attach($adminRole->id);
 
-        $userRole = Role::where('name', 'user')->firstOrFail();
+        $userRole = auth()->user()->currentUsersRole();
         $user->roles()->detach($userRole->id);
 
         return redirect('/admin');
 
     }
-    public function removeAdmin($userId)
+    public function destroy($userId)
     {
         $user = User::where('id', $userId)->firstOrFail();
 
-        $adminRole = Role::where('name', 'admin')->firstOrFail();
+        $adminRole =  auth()->user()->getAdmin();
+
         $user->roles()->detach($adminRole->id);
 
 
-        $userRole = Role::where('name', 'user')->firstOrFail();
+        $userRole = auth()->user()->currentUsersRole();
         $user->roles()->attach($userRole->id);
 
         return redirect('/admin');
     }
+    public function show($id)
+    {
+        if(auth()->user()->currentAuthenticatedUser() == $id )
+        {
+            return view('nopermission');
+        }else{
+            return view('DeleteAdmin' , [
+                'users' => auth()->user()->selecteduser()
+            ]);
+        }
+    }
+    public function delete($id)
+    {
+        User::find($id)->delete();
+        return redirect('/admin');
+    }
 
+    public function permisionDenied()
+    {
+        return view('nopermission');
+    }
 }

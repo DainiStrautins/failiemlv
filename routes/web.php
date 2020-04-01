@@ -16,8 +16,7 @@
 // Database storing registered users
 
 Auth::routes(['verify' => true]);
-Route::get('/home', 'HomeController@index')->name('home');
-
+Route::get('/permission-denied', 'AdminController@permisionDenied')->name('nopermission')->middleware('auth');
 // Secondary authentication, roles (Admin and User)
 Route::group(['middleware'=> ['auth','verified']], function(){
     Route::post('/', 'UploadController@store');
@@ -25,15 +24,14 @@ Route::group(['middleware'=> ['auth','verified']], function(){
     Route::post('/main', 'MainController@store');
 
     // After uploading files you get redirected here (/user)
-    Route::get('/user', 'UploadController@get');
+    Route::get('/user', 'UserController@get');
     // Outputs all current user records (if no records, gets msg)
-    Route::post('/user', 'UploadController@store');
+    Route::post('/user', 'UserController@store');
 
     // USER DELETE
-    Route::get('user/delete/{id}', 'UploadController@deleteuser');
-    Route::post('user/delete/{id}', 'UploadController@commituser')->name('commituser');
+    Route::get('user/delete/{id}', 'UserController@deleteuser');
+    Route::post('user/delete/{id}', 'UserController@commituser')->name('commituser');
     // Users authentication
-    Route::get('/permission-denied', 'DemoController@permisionDenied')->name('nopermission');
     Route::get('/subscription', 'SubscriptionController@create');
     Route::post('/subscription', 'SubscriptionController@store');
     Route::get('/notifications', 'UserNotificationsController@show');
@@ -42,15 +40,15 @@ Route::group(['middleware'=> ['auth','verified']], function(){
     Route::group(['middleware'=> ['admin','verified']], function(){
 
         Route::get('/admin', 'AdminController@index')->name('admin')->middleware('verified');
-        Route::get('/admin/remove-admin/{userId}', 'AdminController@removeAdmin')->middleware('verified');
-        Route::get('/admin/give-admin/{userId}', 'AdminController@giveAdmin')->middleware('verified');
+        Route::get('/admin/remove-admin/{userId}', 'AdminController@destroy')->middleware('verified');
+        Route::get('/admin/give-admin/{userId}', 'AdminController@update')->middleware('verified');
 
         //output all records (admin panel, with out admin auth unable to see this page!)
         Route::get('/allrecords', 'UploadController@GetAllRecords')->middleware('verified');
         Route::post('/allrecords', 'UploadController@storeadmin')->middleware('verified');
 
-        Route::get('admin/delete/{id}', 'UploadController@indexAdminDelete')->middleware('verified');
-        Route::post('admin/delete/{id}', 'UploadController@AdminDelete')->name('AdminDelete')->middleware('verified');
+        Route::get('admin/delete/{id}', 'AdminController@show')->middleware('verified');
+        Route::post('admin/delete/{id}', 'AdminController@delete')->name('AdminDelete')->middleware('verified');
 
         // ADMIN delete
         Route::get('allrecords/delete/{id}', 'UploadController@delete')->middleware('verified');

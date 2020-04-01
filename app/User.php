@@ -69,5 +69,35 @@ class User extends Authenticatable implements MustVerifyEmail
         return Upload::where('user_id', $this->id)
             ->get();
     }
+    public function userlatestRecords()
+    {
+        return Upload::latest('created_at')->where('user_id', $this->id)->first();
+    }
+    public function getallusers()
+    {
+        return User::with('roles')->get();
+    }
+    public function getAdmin()
+    {
+        return Role::where('name', 'admin')->firstOrFail();
+    }
+    public function currentUsersRole()
+    {
+        return Role::where('name', 'user')->firstOrFail();
+    }
+    public function currentAuthenticatedUser()
+    {
+        return auth()->user()->id;
+    }
+    public function selecteduser()
+    {
+        return User::where('id', $this->id)->firstOrFail();
+    }
+    public function getUsersRole()
+    {
+        return auth()->user()->roles->pluck('name');
+    }
+
+
 
 }
