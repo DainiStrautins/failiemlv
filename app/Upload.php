@@ -12,7 +12,7 @@ class Upload extends Model
 
     public function uploader()
     {
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo('App\User','user_id');
     }
 
 

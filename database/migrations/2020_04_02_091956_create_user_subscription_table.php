@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoleUserTable extends Migration
+class CreateUserSubscriptionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateRoleUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('role_user', function (Blueprint $table) {
+        Schema::create('subscription_user', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('role_id')->index();
+            $table->unsignedBigInteger('subscription_id')->index();
             $table->unsignedBigInteger('user_id')->index()->unique();
-            $table->foreign('role_id')->references('id')->on('roles')->onCascade('delete');
+            $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('cascade');
 
-            $table->foreign('user_id')->references('id')->on('users')->onCascade('delete');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
@@ -30,6 +31,6 @@ class CreateRoleUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('role_user');
+        Schema::dropIfExists('user_subscription');
     }
 }

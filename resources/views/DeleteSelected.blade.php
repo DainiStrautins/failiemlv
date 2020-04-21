@@ -17,7 +17,6 @@
                 <a href="/allrecords"> <input type="button" value="Go Back" class="btn btn-primary"/> </a>
             </div>
         </div>
-
     </form>
 @endsection
 

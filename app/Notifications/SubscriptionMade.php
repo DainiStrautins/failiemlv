@@ -7,10 +7,11 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class PaymentReceived extends Notification
+class SubscriptionMade extends Notification
 {
     use Queueable;
 
+    protected $amount;
     /**
      * Create a new notification instance.
      *
@@ -40,12 +41,14 @@ class PaymentReceived extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = url('/subscription');
         return (new MailMessage)
-            ->subject('Your Payment was received!')
-            ->greeting("What's Up?")
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Account status upgrade')
+            ->greeting('Greetings!')
+            ->line('We have received your invoice.')
+            ->line('Your account has received an status upgrade, please check your account notification section.')
+            ->action('Notification Action', $url)
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -56,8 +59,6 @@ class PaymentReceived extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            'amount' => $this->amount
-        ];
+        return $this->amount;
     }
 }

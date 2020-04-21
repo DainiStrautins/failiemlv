@@ -8,13 +8,8 @@
                         <div class="card-body">
                             <h5 class="card-title">Notification</h5>
                             <p class="card-text">
-                                @if ($notification->type === "App\Notifications\SubscriptionBasic"
-                                      || $notification->type === "App\Notifications\SubscriptionMonthlyPro"
-                                      || $notification->type === "App\Notifications\SubscriptionMonthlyBusiness"
-                                      || $notification->type === "App\Notifications\SubscriptionAnnuallyBusiness"
-                                      || $notification->type === "App\Notifications\SubscriptionAnnuallyPro"
-                                      )
-                                    Your subscription is {{$notification->data['amount']}}. 😎
+                                @if ($notification->type === "App\Notifications\SubscriptionMade")
+                                    Your subscription is {{$notification->data}}. 😎
                                 @endif
                             </p>
                         </div>
@@ -28,7 +23,7 @@
                         <div class="card-header">Notification</div>
                         <div class="card-body text-dark">
                             <h5 class="card-title">Sorry!</h5>
-                            <p class="card-text">You do not have any records. 😔</p>
+                            <p class="card-text">You don't have any notifications</p>
                         </div>
                     </div>
                 @endforelse

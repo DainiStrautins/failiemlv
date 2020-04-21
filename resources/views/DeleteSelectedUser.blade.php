@@ -14,7 +14,6 @@
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary"/>
-
                 <a href="/user"> <input type="button" value="Go Back" class="btn btn-primary"/> </a>
             </div>
         </div>

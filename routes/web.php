@@ -16,21 +16,22 @@
 // Database storing registered users
 
 Auth::routes(['verify' => true]);
-Route::get('/permission-denied', 'AdminController@permisionDenied')->name('nopermission')->middleware('auth');
+Route::get('/permission-denied', 'AdminController@permisionDenied')->name('_nopermission');
 // Secondary authentication, roles (Admin and User)
 Route::group(['middleware'=> ['auth','verified']], function(){
     Route::post('/', 'UploadController@store');
-    Route::get('/main', 'MainController@index');
-    Route::post('/main', 'MainController@store');
-
     // After uploading files you get redirected here (/user)
-    Route::get('/user', 'UserController@get');
+    Route::get('/user', 'UserController@index');
     // Outputs all current user records (if no records, gets msg)
     Route::post('/user', 'UserController@store');
 
     // USER DELETE
     Route::get('user/delete/{id}', 'UserController@deleteuser');
     Route::post('user/delete/{id}', 'UserController@commituser')->name('commituser');
+
+    //User Download
+    Route::get('user/download/{id}','UserController@download');
+
     // Users authentication
     Route::get('/subscription', 'SubscriptionController@create');
     Route::post('/subscription', 'SubscriptionController@store');
@@ -39,20 +40,20 @@ Route::group(['middleware'=> ['auth','verified']], function(){
     //Admin authentication
     Route::group(['middleware'=> ['admin','verified']], function(){
 
-        Route::get('/admin', 'AdminController@index')->name('admin')->middleware('verified');
-        Route::get('/admin/remove-admin/{userId}', 'AdminController@destroy')->middleware('verified');
-        Route::get('/admin/give-admin/{userId}', 'AdminController@update')->middleware('verified');
+        Route::get('/admin', 'AdminController@index')->name('admin');
+        Route::get('/admin/remove-admin/{userId}', 'AdminController@destroy');
+        Route::get('/admin/give-admin/{userId}', 'AdminController@update');
 
         //output all records (admin panel, with out admin auth unable to see this page!)
-        Route::get('/allrecords', 'UploadController@GetAllRecords')->middleware('verified');
-        Route::post('/allrecords', 'UploadController@storeadmin')->middleware('verified');
+        Route::get('/allrecords', 'UploadController@GetAllRecords');
+        Route::post('/allrecords', 'UploadController@storeadmin');
 
-        Route::get('admin/delete/{id}', 'AdminController@show')->middleware('verified');
-        Route::post('admin/delete/{id}', 'AdminController@delete')->name('AdminDelete')->middleware('verified');
+        Route::get('admin/delete/{id}', 'AdminController@show');
+        Route::post('admin/delete/{id}', 'AdminController@delete')->name('AdminDelete');
 
         // ADMIN delete
-        Route::get('allrecords/delete/{id}', 'UploadController@delete')->middleware('verified');
-        Route::post('allrecords/delete/{id}', 'UploadController@commit')->name('commit')->middleware('verified');
+        Route::get('allrecords/delete/{id}', 'UploadController@delete');
+        Route::post('allrecords/delete/{id}', 'UploadController@commit')->name('commit');
     });
 });
 

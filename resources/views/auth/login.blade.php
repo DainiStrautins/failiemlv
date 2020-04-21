@@ -18,7 +18,6 @@
                         </span>
                         @enderror
                     </div>
-
                 </div>
             </div>
 
@@ -30,7 +29,6 @@
                             <div class="input-group-text"><i class="fa fa-lock" aria-hidden="true"></i></div>
                         </div>
                         <input id="password" type="password"  class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

@@ -7,47 +7,45 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $users = auth()->user()->getallusers();
+        $users = current_user()->getallusers();
         return view('admin', compact('users'));
+    }
+    public function show($id)
+    {
+        if(current_user()->id == $id )
+        {
+            return view('_nopermission');
+        }else{
+            return view('DeleteAdmin' , [
+                'users' => User::where('id', $id)->firstOrFail(),
+            ]);
+        }
     }
     public function update($userId)
     {
         $user = User::where('id', $userId)->firstOrFail();
-
-        $adminRole =  auth()->user()->getAdmin();
-
-        $user->roles()->attach($adminRole->id);
-
-        $userRole = auth()->user()->currentUsersRole();
-        $user->roles()->detach($userRole->id);
-
-        return redirect('/admin');
-
+        if (current_user()->id !== $user->id)
+        {
+            $adminRole =  current_user()->getAdmin();
+            $user->roles()->attach($adminRole->id);
+            $userRole = current_user()->Role();
+            $user->roles()->detach($userRole->id);
+            return redirect('/admin');
+        }
+        return view('_nopermission');
     }
     public function destroy($userId)
     {
         $user = User::where('id', $userId)->firstOrFail();
-
-        $adminRole =  auth()->user()->getAdmin();
-
-        $user->roles()->detach($adminRole->id);
-
-
-        $userRole = auth()->user()->currentUsersRole();
-        $user->roles()->attach($userRole->id);
-
-        return redirect('/admin');
-    }
-    public function show($id)
-    {
-        if(auth()->user()->currentAuthenticatedUser() == $id )
+        if (current_user()->id !== $user->id)
         {
-            return view('nopermission');
-        }else{
-            return view('DeleteAdmin' , [
-                'users' => auth()->user()->selecteduser()
-            ]);
+            $adminRole = current_user()->getAdmin();
+            $user->roles()->detach($adminRole->id);
+            $userRole = current_user()->Role();
+            $user->roles()->attach($userRole->id);
+            return redirect('/admin');
         }
+        return view('_nopermission');
     }
     public function delete($id)
     {
@@ -57,6 +55,6 @@ class AdminController extends Controller
 
     public function permisionDenied()
     {
-        return view('nopermission');
+        return view('_nopermission');
     }
 }

@@ -42,21 +42,18 @@ class DeleteRecord extends Command
         $users = Upload::all();
         foreach($users as $user)
         {
-
-            $latest = Upload::latest('created_at')->pluck('created_at')->first();
             $oldest = Upload::oldest('created_at')->pluck('created_at')->first();
+            $user_id = Upload::oldest('created_at')->pluck('user_id')->first();
+            $users_upload_id = Upload::oldest('created_at')->pluck('id')->first();
             $filename = Upload::oldest('created_at')->pluck('file')->first();
-            if (now()->diffInMonths($latest) > 3) {
-                $Upload = Upload::where('user_id',$user->user_id)->delete();
-                dd($latest,'Deleted all records because of:',$filename);
-            }
 
-            if (now()->diffInDays($oldest) > 7) {
-                $Upload = Upload::where('created_at',$oldest)->first()->delete();
-                dd($oldest,'Deleted old record, this many days old:',now()->diffInDays($oldest),$filename);
+
+            if (now()->diffInDays($oldest) > 7)
+            {
+                Upload::where('created_at',$oldest)->first()->delete();
+                dd($oldest,'User id:'.$user_id,'User upload id: '.$users_upload_id,' Deleted old record'.$filename.' This many days old:'.now()->diffInDays($oldest));
             }else {
                 dd('Nothing done');
-                var_dump($Upload);
             }
 
         }

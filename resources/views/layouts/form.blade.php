@@ -18,7 +18,7 @@
 <div class="deep-blue-gradient">
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-7 col-sm-10">
+            <div class="col-lg-5 col-md-7 col-sm-12">
                 <div class="card mt-5">
                     <div class="card-body">
                         @yield('body')

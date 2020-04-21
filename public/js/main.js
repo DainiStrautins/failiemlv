@@ -23,9 +23,9 @@ function handleFileSelect(evt) {
             complete_file_name= original_name + '.'+ file_extension;
         }
 
-        output.push('<div class="row"><div class="col-lg-8 text-left">', escape(complete_file_name),  '</div> <div class="col-lg-4 float-right"> ', full_size ,' </div></div>');
+        output.push('<div class="bg-info ml-2 p-4 text-white rounded"> ',escape(complete_file_name),'</div> <div class="bg-info ml-2 p-4 text-white rounded"> ', full_size ,' </div>');
     }
-    document.getElementById('list').innerHTML = '<div class="container text-body">' + output.join('') + '</div>';
+    document.getElementById('list').innerHTML = '<div class="d-flex justify-content-center">' + output.join('') + '</div>';
     }
 }
 

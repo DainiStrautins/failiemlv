@@ -3,10 +3,10 @@
     <h3>Admins page!</h3>
     <div class="row">
         @foreach($users as $user)
-            <div class="col-lg-4 col-xs-12">
-                <div class="card my-2 mx-2" >
+            <div class="col-xl-3 col-lg-4 col-md-6 col-xs-12">
+                <div class="card my-2 mx-2">
                     <div class="card-body">
-                        @if ($user->id != Auth::user()->id)
+                        @if ($user->id != current_user()->id)
                             <div class="top-right">
                                 <a class="text-danger top-right" href="admin/delete/{{ $user->id }}"><i class="fa fa-minus-square" aria-hidden="true"></i> </a>
                             </div>
@@ -22,7 +22,7 @@
                             </h5>
                     </div>
                     <div class="py-2 px-4">
-                        @if ($user->id != Auth::user()->id)
+                        @if ($user->id != current_user()->id)
                             @if ($user->hasRole('admin'))
                                 <a  class="btn btn-danger btn-sm col-lg" href="/admin/remove-admin/{{$user->id}}">
                                     Remove Admin

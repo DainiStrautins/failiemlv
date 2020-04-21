@@ -2,39 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Notifications\PaymentReceived;
 use App\Notifications\SubscriptionAnnuallyBusiness;
 use App\Notifications\SubscriptionAnnuallyPro;
 use App\Notifications\SubscriptionBasic;
+use App\Notifications\SubscriptionMade;
 use App\Notifications\SubscriptionMonthlyBusiness;
 use App\Notifications\SubscriptionMonthlyPro;
+use App\Subscription_user;
 use Illuminate\Http\Request;
+use App\Subscription;
 use Illuminate\Notifications\Notification;
 
 class SubscriptionController extends Controller
 {
     public function create()
     {
-        return view('payments.subscription');
+        $users = current_user();
+        $users->subscriptions;
+
+        return view('subscription', compact(['users']));
     }
     public function store(Request $request)
     {
         $value = request()->get('Subscription');
-        if($value=="Basic"){
-            request()->user()->notify(new SubscriptionBasic($value));
-        }
-        if($value=="Business"){
-            request()->user()->notify(new SubscriptionMonthlyBusiness($value));
-        }
-        if($value=="Pro"){
-            request()->user()->notify(new SubscriptionMonthlyPro($value));
-        }
-        if($value=="Enterprise"){
-            request()->user()->notify(new SubscriptionAnnuallyBusiness($value));
-        }
-        if($value=="Premium"){
-            request()->user()->notify(new SubscriptionAnnuallyPro($value));
-        }
+        $Subscription = new Subscription_user;
+        $Subscription->subscription_id = $value;
+        $Subscription->user_id = current_user()->id;
+        $Subscription->save();
+
+        request()->user()->notify(new SubscriptionMade($value));
+
         return redirect('/subscription');
     }
 }
