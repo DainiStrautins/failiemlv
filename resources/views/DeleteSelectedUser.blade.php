@@ -1,4 +1,4 @@
-@extends('layouts.delete_form')
+@extends('layouts.dash_board')
 @section('body')
     <form method="POST" action="{{route('commituser', ['id' => $upload->id])}}">
         @csrf
@@ -10,7 +10,7 @@
                 <h1>{{HumanReadable::bytesToHuman($upload->size)}}</h1>
             </div>
             <div class="form-group">
-                <h1>{{$upload->created_at}}</h1>
+                <h1>Created {{$upload->created_at->diffForHumans()}}</h1>
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-primary"/>

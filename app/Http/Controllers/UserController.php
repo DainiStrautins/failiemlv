@@ -30,21 +30,32 @@ class UserController extends Controller
     {
         if ($request->hasFile('file'))
         {
-            foreach ($request->file as $file)
-            {
-                $filename = $file->getClientOriginalName();
+            foreach ($request->file as $file) {
+                $upload = Upload::where('user_id',auth()->user()->id)->where('file',$file->getClientOriginalName())->count('file');
 
-                $filesize = $file->getClientSize();
+                if ($upload >= 1)
+                {
+                    return view('_dashboard');
+                }
+                else{
+                    foreach ($request->file as $file)
+                    {
+                        $filename = $file->getClientOriginalName();
 
-                $file->storeAs('/files/'.current_user()->name.'/'.current_user()->id.'/',$filename);
-                $Upload = new Upload;
-                $Upload->user_id = current_user()->id;
-                $Upload->file = $filename;
-                $Upload->size = $filesize;
-                $Upload->save();
+                        $filesize = $file->getClientSize();
 
+                        $file->storeAs('/files/'.current_user()->name.'/'.current_user()->id.'/',$filename);
+                        $Upload = new Upload;
+                        $Upload->user_id = current_user()->id;
+                        $Upload->file = $filename;
+                        $Upload->size = $filesize;
+                        $Upload->save();
+
+                    }
+                    return redirect('/user');
+                }
             }
-            return redirect('/user');
+
         }
         return redirect('/');
     }

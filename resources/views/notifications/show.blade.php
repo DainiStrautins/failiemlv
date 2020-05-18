@@ -8,9 +8,23 @@
                         <div class="card-body">
                             <h5 class="card-title">Notification</h5>
                             <p class="card-text">
-                                @if ($notification->type === "App\Notifications\SubscriptionMade")
-                                    Your subscription is {{$notification->data}}. 😎
-                                @endif
+                                    @if ($notification->type === "App\Notifications\SubscriptionMade")
+                                        @if($notification->data == "1")
+                                            Your subscription is Basic. 😎
+                                        @endif
+                                        @if($notification->data == "2")
+                                            Your subscription is Business. 😎
+                                        @endif
+                                        @if($notification->data == "3")
+                                            Your subscription is Pro. 😎
+                                        @endif
+                                        @if($notification->data == "4")
+                                            Your subscription is Premium. 😎
+                                        @endif
+                                        @if($notification->data == "5")
+                                            Your subscription is Enterprise. 😎
+                                        @endif
+                                    @endif
                             </p>
                         </div>
                         <div class="card-footer">

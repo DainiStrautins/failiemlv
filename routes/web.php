@@ -35,8 +35,9 @@ Route::group(['middleware'=> ['auth','verified']], function(){
     // Users authentication
     Route::get('/subscription', 'SubscriptionController@create');
     Route::post('/subscription', 'SubscriptionController@store');
+    Route::get('/subscription/remove-subscription/{userId}', 'SubscriptionController@destroy');
     Route::get('/notifications', 'UserNotificationsController@show');
-
+    Route::get('/graph','GraphController@index');
     //Admin authentication
     Route::group(['middleware'=> ['admin','verified']], function(){
 

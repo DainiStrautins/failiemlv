@@ -9,13 +9,6 @@
                         <i class="fa fa-files-o" aria-hidden="true"></i> {{ $count }} <br/>
                         <i class="fa fa-pie-chart" aria-hidden="true"></i> {{ HumanReadable::bytesToHuman($full_size) }}<br/>
                     </ul>
-                    <div class="after-upload">
-                        <input type="submit" class="file btn btn-lg btn-outline-primary btn-block rounded-pill">
-                    </div>
-                    <div class="custom-file hide-after">
-                        <input type="file" class="custom-file-input" id="filename" multiple name="file[]">
-                        <label class="custom-file-label">Choose file</label>
-                    </div>
                 </form>
             </div>
             <div id="right" class="col-lg-9 col-sm-12 ">
@@ -37,7 +30,7 @@
                                         <div class="my-3">
                                             <a class="text-danger bottom-center" href="allrecords/delete/{{ $upload->id }}"><i class="fa fa-minus-square" aria-hidden="true"></i> </a>
                                         </div>
-                                </div>
+                                </div>  
                             </div>
                         @empty
                             <div class="text-center">
@@ -49,5 +42,5 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="{{ URL::asset('js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/numbers.js') }}"></script>
 @endsection

@@ -7,12 +7,6 @@
                     @csrf
                     @forelse($uploads as $upload)
                         @if($loop->last)
-                    <i class="fa fa-question-circle btn btn-small btn-outline-primary text-center"
-                       aria-hidden="true"
-                       data-rel="popover"
-                       title="<strong>Attention</strong>"
-                       data-content="<p class='text-body text-center'>Each item that lifespan is longer than 7 days gets deleted!</p>" data-placement="top">
-                    </i>
                         <ul>
                             <i class="fa fa-user-o" aria-hidden="true"></i> {{ auth()->user()->name }}<br/>
                             <i class="fa fa-files-o" aria-hidden="true"></i> {{ $count }} <br/>
@@ -26,8 +20,8 @@
                     <div class="after-upload">
                         <input type="submit" class="file btn btn-lg btn-outline-primary btn-block rounded-pill">
                     </div>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input hide-after"  id="filename" multiple name="file[]" >
+                    <div class="custom-file hide-after">
+                        <input type="file" class="custom-file-input"  id="filename" multiple name="file[]">
                         <label class="custom-file-label hide-after">Choose file</label>
                     </div>
                 </form>
@@ -71,6 +65,5 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript" src="{{ URL::asset('js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/numbers.js') }}"></script>
 @endsection

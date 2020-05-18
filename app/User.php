@@ -40,4 +40,8 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany('App\Subscription_user');
     }
+    public function graph()
+    {
+        return $this->hasMany(Graph::class);
+    }
 }

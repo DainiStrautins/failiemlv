@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class UploadController extends Controller
 {
-    // add authentication
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     // show main page
     public function index()
@@ -22,19 +17,29 @@ class UploadController extends Controller
     {
         if ($request->hasFile('file'))
         {
-            foreach ($request->file as $file)
-            {
-                $filename = $file->getClientOriginalName();
-                $filesize = $file->getClientSize();
-                
-                $file->storeAs('/files/'.current_user()->name.'/'.current_user()->id.'/',$filename);
-                $Upload = new Upload;
-                $Upload->user_id = current_user()->id;
-                $Upload->file = $filename;
-                $Upload->size = $filesize;
-                $Upload->save();
-            }
-            return redirect('/');
+            foreach ($request->file as $file) {
+                $upload = Upload::take(1)->where('user_id',auth()->user()->id)->where('file',$file->getClientOriginalName())->count('file');
+
+                if ($upload >= 1)
+                    {
+                        return view('_dashboard');
+                    }else{
+                    foreach ($request->file as $file)
+                    {
+                        $filename = $file->getClientOriginalName();
+                        $filesize = $file->getClientSize();
+
+                        $file->storeAs('/files/'.current_user()->name.'/'.current_user()->id.'/',$filename);
+                        $Upload = new Upload;
+                        $Upload->user_id = current_user()->id;
+                        $Upload->file = $filename;
+                        $Upload->size = $filesize;
+                        $Upload->save();
+                    }
+                    return redirect('/user');
+                }
+                }
+
         }
         return redirect('/');
     }
@@ -54,25 +59,6 @@ class UploadController extends Controller
             ->with(['full_size' =>$full_size]
             );
     }
-    public function storeadmin(request $request)
-    {
-        if ($request->hasFile('file'))
-        {
-            foreach ($request->file as $file)
-            {
-                $filename = $file->getClientOriginalName();
-                $filesize = $file->getClientSize();
-                $Upload = new Upload;
-                $file->storeAs('/files/'.current_user()->name.'/'.current_user()->id.'/',$filename);
-                $Upload->user_id= current_user()->id;
-                $Upload->file = $filename;
-                $Upload->size = $filesize;
-                $Upload->save();
-            }
-            return redirect('/allrecords');
-        }
-        return redirect('/');
-    }
     public function delete($id)
     {
         $userRoles = current_user()->roles->pluck('name');
@@ -80,7 +66,7 @@ class UploadController extends Controller
             return view('_nopermission');
         }else{
             return view('deleteselected' , [
-                'offer' => Upload::where('id', $id)->firstOrFail(),
+                'upload' => Upload::where('id', $id)->firstOrFail(),
             ]);
         }
     }

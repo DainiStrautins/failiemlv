@@ -1,16 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        @if(\Session::has('success'))
-            <div class="alert alert-success">
-                <p>{{Session::get('success')}}</p>
-            </div>
-        @endif
         <div id="landing-section" class="text-center">
             <form id="myform" class="py-2" action="" method="post" enctype="multipart/form-data">
-                @csrf
+                @csrf  <!--  cross-site request forgery -->
                 <div id="drop_zone" class="py-5">
-
                     <!-- Main page -->
                     <div class="hide-after">
                         <div id="title">Store, Share Files</div>
@@ -40,12 +34,12 @@
                                 Upload your files now!
                             </button>
                         </div>
-                        <output class="col-lg-12 text-let" id="list">
+                        <output class="col-lg-12 text-let px-0" id="list">
                         </output>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    <script type="text/javascript" src="{{ URL::asset('js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/numbers.js') }}"></script>
 @endsection

@@ -9,6 +9,7 @@ use App\Notifications\SubscriptionMade;
 use App\Notifications\SubscriptionMonthlyBusiness;
 use App\Notifications\SubscriptionMonthlyPro;
 use App\Subscription_user;
+use App\User;
 use Illuminate\Http\Request;
 use App\Subscription;
 use Illuminate\Notifications\Notification;
@@ -33,5 +34,17 @@ class SubscriptionController extends Controller
         request()->user()->notify(new SubscriptionMade($value));
 
         return redirect('/subscription');
+    }
+    public function destroy($userId)
+    {
+        $user = User::where('id', $userId)->firstOrFail();
+        if ($user->id === current_user()->id)
+        {
+            $SubscriptionType = Subscription_user::where('user_id', current_user()->id)->pluck('subscription_id');
+            $user->subscriptions()->detach($SubscriptionType);
+            return redirect('subscription');
+            return redirect('subscription');
+        }
+        return view('_nopermission');
     }
 }

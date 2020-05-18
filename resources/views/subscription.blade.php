@@ -1,8 +1,17 @@
 @extends('layouts.app')
 @section('content')
         @forelse($users->subscriptions as $subscription)
-            <div class="d-flex justify-content-center">
-                <h1>Your subscription type: {{$subscription->name}}</h1>
+            <div class="container">
+                <div style="margin-top:25%">
+                    <div class="d-flex justify-content-center text-center">
+                        <h1>Your subscription type: {{$subscription->name}}</h1>
+                    </div>
+                    <div class="d-flex justify-content-center mt-2 text-center">
+                        <a  class="btn btn-primary btn-lg" href="/subscription/remove-subscription/{{current_user()->id}}">
+                            Remove Subscription
+                        </a>
+                    </div>
+                </div>
             </div>
             @empty
             <div class="jumbotron jumbotron-fluid pt-2">

@@ -3,7 +3,7 @@
     <h3>Admins page!</h3>
     <div class="row">
         @foreach($users as $user)
-            <div class="col-xl-3 col-lg-4 col-md-6 col-xs-12">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-xs-12">
                 <div class="card my-2 mx-2">
                     <div class="card-body">
                         @if ($user->id != current_user()->id)
@@ -12,13 +12,13 @@
                             </div>
                             <h5 class="card-title text-muted">  {{$user->name}}
                                 @else
-                                    <h5 class="card-title">   <b>You</b>
-                                        @endif
-                                        @foreach($user->roles as $role)
-                                            <small class="text-muted">({{$role->name}})</small>
-                                            <p><small class="text-muted">{{$user->email}}</small></p>
-                                        @endforeach
-                                    </h5>
+                                <h5 class="card-title">   <b>You</b>
+                                    @endif
+                                    @foreach($user->roles as $role)
+                                        <small class="text-muted">({{$role->name}})</small>
+                                        <p><small class="text-muted">{{$user->email}}</small></p>
+                                    @endforeach
+                                </h5>
                             </h5>
                     </div>
                     <div class="py-2 px-4">
