@@ -9,7 +9,7 @@
                         @if($loop->last)
                         <ul>
                             <i class="fa fa-user-o" aria-hidden="true"></i> {{ auth()->user()->name }}<br/>
-                            <i class="fa fa-files-o" aria-hidden="true"></i> {{ $count }} <br/>
+                            <i class="fa fa-files-o" aria-hidden="true"></i> {{ $count}} <br/>
                             <i class="fa fa-pie-chart" aria-hidden="true"></i> {{ HumanReadable::bytesToHuman($full_size) }}<br/>
                             <i class="fa fa-calendar-o" aria-hidden="true"></i> {{ $date->created_at->toDateString() }}<br/>
                         </ul>
@@ -65,5 +65,5 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="{{ URL::asset('js/numbers.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/toggle.js') }}"></script>
 @endsection

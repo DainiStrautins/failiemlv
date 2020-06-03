@@ -7,7 +7,7 @@
             <div class="col-xl-12 col-lg-12">
                 <div class="card shadow">
                     <div class="bg-primary py-4">
-                        <h6 class="m-0 font-weight-bold text-white text-center">Area Chart</h6></div>
+                        <h6 class="m-0 font-weight-bold text-white text-center">Upload Count each month</h6></div>
                     <div class="card-body p-5">
                         <div class="col-lg-12 h-100">
                                 {!! $chart->container() !!}

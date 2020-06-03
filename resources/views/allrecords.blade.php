@@ -30,7 +30,7 @@
                                         <div class="my-3">
                                             <a class="text-danger bottom-center" href="allrecords/delete/{{ $upload->id }}"><i class="fa fa-minus-square" aria-hidden="true"></i> </a>
                                         </div>
-                                </div>  
+                                </div>
                             </div>
                         @empty
                             <div class="text-center">
@@ -42,5 +42,4 @@
             </div>
         </div>
     </div>
-    <script type="text/javascript" src="{{ URL::asset('js/numbers.js') }}"></script>
 @endsection

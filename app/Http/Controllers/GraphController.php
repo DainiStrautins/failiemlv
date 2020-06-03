@@ -13,20 +13,12 @@ class GraphController extends Controller
     public function index()
     {
 
-        $chart = new Graph;
-        $chart->labels($this->getAllMonths());
-        $chart->dataset('My dataset', 'bar', $this->getMonthlyPostData())
-            ->backgroundColor('#007bff');
-
-
-
+        $chart = new Graph; // Creates new Graph
+        $chart->labels($this->getAllMonths()); // Assigns Labels
+        $chart->dataset('Upload Count', 'bar', $this->getMonthlyPostData()) // Assigns legend name, type of chart, and values
+            ->backgroundColor('#007bff'); // color
         return view('graph.index',['chart' => $chart]);
     }
-    public function show($id)
-    {
-
-    }
-
 
     function getAllMonths(){
 
@@ -45,29 +37,24 @@ class GraphController extends Controller
         $month_array = array_unique($month_array);
         return array_values($month_array); // returns unique values from array
     }
+
     function getMonthlyPostCount( $month ) {
-        $monthly_post_count = Upload::where('user_id',auth()->user()->id)->whereMonth( 'created_at', $month )->get()->count();
-        return $monthly_post_count;
+        $monthly_post_count = Upload::where('user_id',auth()->user()->id)->whereMonth( 'created_at', $month )->get()->count(); // Gets count of uploads in this month, method what is used later
+        return $monthly_post_count; // returns the value
     }
 
     function getMonthlyPostData() {
-
-        $monthly_post_count_array = array();
-        $month_array = $this->getAllMonths();
-        $month_name_array = array();
-        if (! empty( $month_array )) {
-            foreach ( $month_array as $month_no ){
-                $month_no = date('m',strtotime($month_no));
-
-                $monthly_post_count = $this->getMonthlyPostCount( $month_no );
-
-
-                array_push( $monthly_post_count_array, $monthly_post_count );
+        $monthly_post_count_array = array(); // created variable as array
+        $month_array = $this->getAllMonths(); // Gets all months
+        if (! empty( $month_array )) { // Check if not empty
+            foreach ( $month_array as $month_no ){ // For each month do{...}
+                $month_no = date('m',strtotime($month_no)); // Formats date
+                $monthly_post_count = $this->getMonthlyPostCount( $month_no ); // Gets count based on each month in the loop
+                array_push( $monthly_post_count_array, $monthly_post_count );  // Push elements onto the end of array
             }
         }
         $monthly_post_data_array = $monthly_post_count_array;
 
         return $monthly_post_data_array;
-
     }
 }

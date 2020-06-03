@@ -10,6 +10,6 @@ class Subscription_user extends Model
     protected $table = 'subscription_user';
     public function users()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\User','user_id')->withTimestamps();
     }
 }

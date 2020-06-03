@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable, Admin, Users, Uploads, Subscriptions;
+    use Notifiable, Admin, Users, Uploads;
 
     protected $fillable = [
         'name', 'email', 'password',
@@ -20,6 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'dont_render_images' => 'boolean'
     ];
     public function roles()
     {

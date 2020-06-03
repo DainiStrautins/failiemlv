@@ -9,7 +9,9 @@
                     <div class="hide-after">
                         <div id="title">Store, Share Files</div>
                         <div class="col-md-7 col-sm-7 mx-auto pt-3">
-                            <input class="upload-button mt-3" id="filename" type="file" required multiple name="file[]"/>
+                                <label>
+                                    <input class="upload-button mt-3" id="filename" type="file" required multiple name="file[]"/>
+                                </label>
                             @error('file')
                             <p class="text-danger pt-2">{{ $message }}</p>
                             @enderror
@@ -27,7 +29,9 @@
                         @endauth
 
                         <div class="col-md-7 col-sm-7 mx-auto pt-3 ">
-                            <input class="add-button" type="file" id="filename" name="file[]" multiple />
+                            <label>
+                                <input class="add-button" type="file" id="filename" name="file[]" multiple />
+                            </label>
                         </div>
                         <div class="col-md-8 col-sm-8 my-3 mx-auto">
                             <button type="submit" class="file btn btn-lg btn-outline-primary btn-block rounded-pill border-primary">

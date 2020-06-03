@@ -14,7 +14,7 @@
 // Main authentication for ALL this project
 // Login and Register system
 // Database storing registered users
-
+Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes(['verify' => true]);
 Route::get('/permission-denied', 'AdminController@permisionDenied')->name('_nopermission');
 // Secondary authentication, roles (Admin and User)
@@ -39,7 +39,7 @@ Route::group(['middleware'=> ['auth','verified']], function(){
     Route::get('/notifications', 'UserNotificationsController@show');
     Route::get('/graph','GraphController@index');
     //Admin authentication
-    Route::group(['middleware'=> ['admin','verified']], function(){
+    Route::group(['middleware'=> ['admin']], function(){
 
         Route::get('/admin', 'AdminController@index')->name('admin');
         Route::get('/admin/remove-admin/{userId}', 'AdminController@destroy');

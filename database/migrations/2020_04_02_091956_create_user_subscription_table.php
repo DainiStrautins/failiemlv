@@ -15,7 +15,7 @@ class CreateUserSubscriptionTable extends Migration
     {
         Schema::create('subscription_user', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('user_id')->index()->unique();
             $table->unsignedBigInteger('subscription_id');
             $table->timestamps();
             $table->foreign('user_id')

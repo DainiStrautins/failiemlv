@@ -9,6 +9,6 @@ class subscription extends Model
     protected $guarded = [];
     public function users()
     {
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo('App\User','user_id')->withTimestamps();
     }
 }
